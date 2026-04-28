@@ -1,6 +1,11 @@
 import { ref } from 'vue'
 import { matchFaqAnswer } from '@/utils/faq'
 
+function apiUrl(path: string) {
+  const base = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '')
+  return `${base}${path}`
+}
+
 export interface ChatMessage {
   role: 'user' | 'assistant'
   content: string
@@ -26,7 +31,7 @@ export function useAiChat() {
     isLoading.value = true
 
     try {
-      const res = await fetch('/api/chat', {
+      const res = await fetch(apiUrl('/api/chat'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -3,8 +3,6 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 
 export default defineConfig({
-  // GitHub Pages 项目站点需要仓库名作为 base
-  // 例：https://user.github.io/repo/ 对应 base: '/repo/'
   base: process.env.GITHUB_REPOSITORY
     ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/`
     : '/',

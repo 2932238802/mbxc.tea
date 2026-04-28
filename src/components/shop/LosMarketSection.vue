@@ -281,22 +281,23 @@ import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useCartStore } from '@/stores/cart'
 import { TEA_PRODUCTS, normalizeTeaSpec, calcTeaPrice, clampQty } from '@/utils/products'
 import ProductCard from './LosProductCard.vue'
+import { assetUrl } from '@/utils/asset'
 import { Toast } from 'bootstrap'
 
 const cart = useCartStore()
 
 const preorderTeas = [
-  { grade: '手工·匠心', price: 3000, img: '/手工·匠心.jpg', badge: '限量预定' },
-  { grade: '特选级', price: 1899, img: '/特选级.jpg', badge: '限量预定' },
-  { grade: '精选级', price: 1399, img: '/精选级.jpg', badge: '预定' },
-  { grade: '优选级', price: 999, img: '/优选级.jpg', badge: '预定' },
+  { grade: '手工·匠心', price: 3000, img: assetUrl('手工·匠心.jpg'), badge: '限量预定' },
+  { grade: '特选级', price: 1899, img: assetUrl('特选级.jpg'), badge: '限量预定' },
+  { grade: '精选级', price: 1399, img: assetUrl('精选级.jpg'), badge: '预定' },
+  { grade: '优选级', price: 999, img: assetUrl('优选级.jpg'), badge: '预定' },
 ]
 
 const merchItems = [
-  { name: '茶小泽钥匙扣', price: 29, img: '/钥匙扣.jpg' },
-  { name: '茶小泽金属冰箱贴', price: 59, img: '/金属冰箱贴.jpg' },
-  { name: '茶小泽系列盲盒', price: 69, img: '/系列盲盒.jpg' },
-  { name: '茶小泽茶宠', price: 179, img: '/茶宠.jpg' },
+  { name: '茶小泽钥匙扣', price: 29, img: assetUrl('钥匙扣.jpg') },
+  { name: '茶小泽金属冰箱贴', price: 59, img: assetUrl('金属冰箱贴.jpg') },
+  { name: '茶小泽系列盲盒', price: 69, img: assetUrl('系列盲盒.jpg') },
+  { name: '茶小泽茶宠', price: 179, img: assetUrl('茶宠.jpg') },
 ]
 
 const showAllModal = ref(false)
@@ -309,7 +310,6 @@ function submitPreorder() {
   preorderResult.value = `✅ 预定已提交：${preorderForm.grade} · ${preorderForm.qty}盒请联系客服确认【发货批次】与【支付方式】`
 }
 
-// Preorder Modal
 const preorderModal = reactive({
   show: false, grade: '', selKey: '', qty: 1, summary: '',
   specs: [] as Array<{ key: string; grams: number; label: string; price: number }>,

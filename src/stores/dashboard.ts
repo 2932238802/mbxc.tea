@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { assetUrl } from '@/utils/asset'
 
 export interface DashboardData {
   total_sales: number
@@ -27,7 +28,7 @@ export const useDashboardStore = defineStore('dashboard', () => {
     loading.value = true
     error.value = ''
     try {
-      const res = await fetch('/static/data.json')
+      const res = await fetch(assetUrl('static/data.json'))
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       data.value = await res.json()
       return data.value

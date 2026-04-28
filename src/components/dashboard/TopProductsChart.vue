@@ -37,7 +37,7 @@ function render() {
       indexAxis: 'y', responsive: true,
       plugins: { legend: { display: false } },
       scales: {
-        x: { grid: { borderDash: [5, 5] as any, color: '#eee' } },
+        x: { grid: { color: '#eee' } },
         y: { grid: { display: false } },
       },
     },

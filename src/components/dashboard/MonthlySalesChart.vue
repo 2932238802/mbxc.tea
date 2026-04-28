@@ -56,7 +56,7 @@ function render() {
       },
       scales: {
         x: { grid: { display: false } },
-        y: { grid: { borderDash: [5, 5] as any, color: '#eee' }, beginAtZero: true },
+        y: { grid: { color: '#eee' }, beginAtZero: true },
       },
     },
   })

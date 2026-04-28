@@ -15,17 +15,29 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import Swiper from 'swiper'
-import 'swiper/css'
-import 'swiper/css/pagination'
+import { onMounted, onUnmounted } from 'vue'
+import Swiper from 'swiper/bundle'
+import 'swiper/css/bundle'
+
+let heroSwiper: Swiper | null = null
 
 onMounted(() => {
-  new Swiper('.hero-swiper', {
+  heroSwiper = new Swiper('.hero-swiper', {
     loop: true,
-    autoplay: { delay: 5000, disableOnInteraction: false },
-    pagination: { el: '.swiper-pagination', clickable: true },
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
   })
+})
+
+onUnmounted(() => {
+  heroSwiper?.destroy(true, true)
+  heroSwiper = null
 })
 </script>
 

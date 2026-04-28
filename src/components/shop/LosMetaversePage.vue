@@ -43,6 +43,8 @@
 <script setup lang="ts">
 import { watch } from 'vue'
 
+import { assetUrl } from '@/utils/asset'
+
 const props = defineProps<{ visible: boolean }>()
 defineEmits<{ close: [] }>()
 
@@ -51,11 +53,11 @@ watch(() => props.visible, (v) => {
 })
 
 const vrScenes = [
-  { src: '/城市书屋.jpg', label: '城市书屋' },
-  { src: '/古树群公园.jpg', label: '古树群公园' },
-  { src: '/松香茶径.jpg', label: '松香茶径' },
-  { src: '/以茶代酒.jpg', label: '以茶代酒' },
-  { src: '/游客服务中心.jpg', label: '游客服务中心' },
+  { src: assetUrl('城市书屋.jpg'), label: '城市书屋' },
+  { src: assetUrl('古树群公园.jpg'), label: '古树群公园' },
+  { src: assetUrl('松香茶径.jpg'), label: '松香茶径' },
+  { src: assetUrl('以茶代酒.jpg'), label: '以茶代酒' },
+  { src: assetUrl('游客服务中心.jpg'), label: '游客服务中心' },
 ]
 </script>
 

@@ -1,8 +1,10 @@
+import { assetUrl } from '@/utils/asset'
+
 export const FAQ_LIST = [
   {
     q: '1、安顶山景区有哪些核心游玩点位，有没有导览路线？',
     a: '核心点位有茶非遗工坊、天空之镜、云雾露营基地、星空观景点、核心茶园体验区；推荐轻量导览路线：游客中心→天空之镜打卡→核心茶园采茶体验→非遗工坊看炒茶技艺→云雾茶吧品茶，全程约2-3小时，适合休闲游览',
-    mapSrc: '/导览.jpg',
+    mapSrc: assetUrl('导览.jpg'),
     mapTitle: '安顶山导览图',
   },
   {

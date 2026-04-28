@@ -100,8 +100,7 @@ onMounted(() => store.fetchData())
   min-height: 100vh;
   background-color: rgba(245, 247, 245, 0.78);
   backdrop-filter: blur(8px);
-  background-image: linear-gradient(rgba(245,247,245,0.72), rgba(245,247,245,0.72)), url('/总览.jpg');
-  background-size: cover; background-position: center; background-attachment: fixed;
+  background-color: rgba(245, 247, 245, 0.78);
 }
 .top-navbar {
   background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.02);

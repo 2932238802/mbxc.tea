@@ -10,7 +10,7 @@
     </div>
     <div class="row g-4">
       <div class="col-md-6">
-        <img src="/数字2.jpg" class="img-fluid rounded shadow-sm industry-img" alt="数字茶园">
+        <img :src="assetUrl('数字2.jpg')" class="img-fluid rounded shadow-sm industry-img" alt="数字茶园">
       </div>
       <div class="col-md-6">
         <div class="h-100 d-flex flex-column justify-content-center">
@@ -27,6 +27,10 @@
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import { assetUrl } from '@/utils/asset'
+</script>
 
 <style scoped>
 .section-title-wrapper {

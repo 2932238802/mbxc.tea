@@ -30,7 +30,7 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <img src="/茶叶.jpg" class="img-fluid rounded shadow intro-img" alt="安顶云雾茶">
+            <img :src="assetUrl('茶叶.jpg')" class="img-fluid rounded shadow intro-img" alt="安顶云雾茶">
           </div>
         </div>
       </section>
@@ -55,6 +55,7 @@
 </template>
 
 <script setup lang="ts">
+import { assetUrl } from '@/utils/asset'
 import Layout from '@/components/shop/LosLayout.vue'
 import HeroSwiper from '@/components/shop/LosSwiper.vue'
 

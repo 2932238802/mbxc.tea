@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar d-none d-md-block">
     <div class="brand-logo">
-      <img class="brand-logo-img" src="/logo.jpg" alt="Logo">
+      <img class="brand-logo-img" :src="assetUrl('logo.jpg')" alt="Logo">
       <span>茗不虚传</span>
     </div>
     <div class="px-3 mb-3 text-muted" style="font-size:0.8rem;font-weight:600;">产业大脑中枢</div>
@@ -16,6 +16,10 @@
     </nav>
   </div>
 </template>
+
+<script setup lang="ts">
+import { assetUrl } from '@/utils/asset'
+</script>
 
 <style scoped>
 .sidebar {

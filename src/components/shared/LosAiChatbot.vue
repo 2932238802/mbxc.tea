@@ -3,7 +3,7 @@
     <div v-if="visible" class="overlay-page is-open">
       <div class="overlay-header">
         <div class="overlay-title">
-          <img src="/茶小泽2.png" alt="茶小泽" class="bot-avatar">
+          <img :src="assetUrl('茶小泽2.png')" alt="茶小泽" class="bot-avatar">
           <div class="overlay-title-stack">
             <div>茶小泽 · AI 客服</div>
             <div class="overlay-title-sub">Hi～我是茶小泽，关于安顶山茶产业的任何问题，尽管问我噢！</div>
@@ -66,6 +66,7 @@
 <!--------------------------------------------------------->
 
 <script setup lang="ts">
+import { assetUrl } from '@/utils/asset'
 import { ref, watch, nextTick } from 'vue'
 import { useAiChat } from '@/composables/useAiChat'
 import { FAQ_LIST, QUICK_BTNS } from '@/utils/faq'

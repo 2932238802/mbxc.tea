@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="col-lg-7">
-            <img src="/碳汇.jpg" class="img-fluid rounded shadow carbon-img" alt="茶碳汇">
+            <img :src="assetUrl('碳汇.jpg')" class="img-fluid rounded shadow carbon-img" alt="茶碳汇">
           </div>
         </div>
 
@@ -52,6 +52,7 @@
 </template>
 
 <script setup lang="ts">
+import { assetUrl } from '@/utils/asset'
 import Layout from '@/components/shop/LosLayout.vue'
 
 const abilities = [
@@ -78,7 +79,7 @@ const abilities = [
   min-height: 100vh;
 }
 .page-hero {
-  background: linear-gradient(135deg, rgba(0,104,59,.92), rgba(46,125,50,.82)), url('/碳汇.jpg');
+  background: linear-gradient(135deg, rgba(0,104,59,.92), rgba(46,125,50,.82));
   background-size: cover;
   background-position: center;
   color: #fff;

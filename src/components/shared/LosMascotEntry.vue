@@ -1,6 +1,6 @@
 <template>
   <div class="mascot-entry" title="AI 客服 · 茶小泽">
-    <img class="mascot-img" src="/茶小泽2.png" alt="茶小泽">
+    <img class="mascot-img" :src="assetUrl('茶小泽2.png')" alt="茶小泽">
     <div class="mascot-hint">Hi～我是茶小泽，关于安顶山茶产业的任何问题，尽管问我噢！</div>
   </div>
 </template>
@@ -9,6 +9,7 @@
 
 
 <script setup lang="ts">
+import { assetUrl } from '@/utils/asset'
 
 </script>
 

@@ -16,10 +16,7 @@ import AppFooter from '@/components/shop/LosAppFooter.vue'
 <style scoped>
 .shop-page {
   min-height: 100vh;
-  background-image: linear-gradient(rgba(252, 252, 252, 0.86), rgba(252, 252, 252, 0.86)), url('/总览.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-color: #f7fcf9;
 }
 .page-offset {
   padding-top: 76px;

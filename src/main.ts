@@ -3,7 +3,6 @@ import { createPinia } from 'pinia'
 import App from './LosApp.vue'
 import router from './router'
 
-// Bootstrap CSS & JS
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 

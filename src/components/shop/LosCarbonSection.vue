@@ -19,12 +19,16 @@
           </div>
         </div>
         <div class="col-md-7 text-center">
-          <img src="/碳汇.jpg" class="img-fluid rounded shadow" alt="碳汇">
+          <img :src="assetUrl('碳汇.jpg')" class="img-fluid rounded shadow" alt="碳汇">
         </div>
       </div>
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import { assetUrl } from '@/utils/asset'
+</script>
 
 <style scoped>
 .carbon-section { background-color: var(--tea-light); padding: 60px 0; }

@@ -5,7 +5,7 @@
         <div class="col-lg-4 mb-4">
           <h5 class="footer-title">茗不虚传 · 产业互联</h5>
           <p class="mb-4">致力于中国茶产业数字化转型，打造"数字茶园+智慧工厂+云端交易+绿色金融"的全产业链生态闭环</p>
-          <img src="/logo.jpg" alt="Logo" class="rounded bg-white p-2 footer-logo">
+          <img :src="assetUrl('logo.jpg')" alt="Logo" class="rounded bg-white p-2 footer-logo">
         </div>
         <div class="col-lg-2 col-md-4 mb-4">
           <h5 class="footer-title">核心服务</h5>
@@ -51,6 +51,7 @@
 
 <!--------------------------------------------------------->
 <script setup lang="ts">
+import { assetUrl } from '@/utils/asset'
 </script>
 
 <style scoped>

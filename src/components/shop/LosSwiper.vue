@@ -44,6 +44,7 @@
 <!------------------------------------------>
 
 <script setup lang="ts">
+import { assetUrl } from '@/utils/asset'
 import { onMounted, onUnmounted } from 'vue'
 import Swiper from 'swiper/bundle'
 import 'swiper/css/bundle'
@@ -52,7 +53,7 @@ let LosSwiper: Swiper | null = null
 
 const slides = [
   {
-    image: '/封面.jpg',
+    image: assetUrl('封面.jpg'),
     kicker: '安顶山云雾茶数字焕新',
     title: '安顶山茶产业互联网<br>综合服务平台',
     subtitle: '整合全产业链资源 · 赋能数字农业 · 助力乡村振兴',
@@ -60,7 +61,7 @@ const slides = [
     link: '/market',
   },
   {
-    image: '/数字2.jpg',
+    image: assetUrl('数字2.jpg'),
     kicker: '数字茶园示范基地',
     title: '空天地一体化监测<br>驱动智慧茶园管理',
     subtitle: '物联网感知 · AI 农事建议 · 茶园长势监测',
@@ -68,7 +69,7 @@ const slides = [
     link: '/industry',
   },
   {
-    image: '/碳汇.jpg',
+    image: assetUrl('碳汇.jpg'),
     kicker: '低碳农业与绿色资产',
     title: '茶园碳汇资产管理<br>释放生态价值',
     subtitle: '绿色种植 · 碳汇核算 · 产业价值转化',

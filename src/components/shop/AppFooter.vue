@@ -10,19 +10,19 @@
         <div class="col-lg-2 col-md-4 mb-4">
           <h5 class="footer-title">核心服务</h5>
           <ul>
-            <li><a href="#">数字茶园解决方案</a></li>
-            <li><a href="#">茶企 ERP 系统</a></li>
-            <li><a href="#">溯源防伪体系</a></li>
-            <li><a href="#">茶碳汇资产管理</a></li>
+            <li><a href="" @click.prevent>数字茶园解决方案</a></li>
+            <li><a href="" @click.prevent>茶企 ERP 系统</a></li>
+            <li><a href="" @click.prevent>溯源防伪体系</a></li>
+            <li><a href="" @click.prevent>茶碳汇资产管理</a></li>
           </ul>
         </div>
         <div class="col-lg-2 col-md-4 mb-4">
           <h5 class="footer-title">友情链接</h5>
           <ul>
-            <li><a href="#">中国茶叶流通协会</a></li>
-            <li><a href="#">农业农村部</a></li>
-            <li><a href="#">安顶山云雾茶官网</a></li>
-            <li><a href="#">茶小智产业大脑</a></li>
+            <li><a href="" @click.prevent>中国茶叶流通协会</a></li>
+            <li><a href="" @click.prevent>农业农村部</a></li>
+            <li><a href="" @click.prevent>安顶山云雾茶官网</a></li>
+            <li><a href="" @click.prevent>茶小智产业大脑</a></li>
           </ul>
         </div>
         <div class="col-lg-4 col-md-4 mb-4 footer-contact">

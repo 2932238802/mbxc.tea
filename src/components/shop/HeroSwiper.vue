@@ -42,7 +42,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.hero-swiper { height: 500px; margin-top: 76px; }
+.hero-swiper { height: 500px; }
 .hero-slide {
   background-size: cover; background-position: center;
   display: flex; align-items: center; justify-content: center;

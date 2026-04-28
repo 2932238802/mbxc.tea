@@ -48,3 +48,12 @@ D:\LosAngelous\Los\LosTeaWeb\
     └── views/
         ├── ShopView.vue                # C端门户
         └── DashboardView.vue           # B端数据大屏
+
+
+src/views/CultureView.vue     # 茶文旅
+src/views/IndustryView.vue    # 茶产业
+src/views/TechView.vue        # 茶科技
+src/views/ServiceView.vue     # 茶服务
+src/views/CarbonView.vue      # 茶碳汇
+src/views/MarketView.vue      # 交易中心
+

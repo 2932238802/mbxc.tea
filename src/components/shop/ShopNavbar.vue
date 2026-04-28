@@ -10,19 +10,32 @@
       </button>
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link active" href="#">首页</a></li>
-          <li class="nav-item"><a class="nav-link" href="#culture">茶文旅</a></li>
-          <li class="nav-item"><a class="nav-link" href="#industry">茶产业</a></li>
-          <li class="nav-item"><a class="nav-link" href="#tech">茶科技</a></li>
-          <li class="nav-item"><a class="nav-link" href="#service">茶服务</a></li>
-          <li class="nav-item"><a class="nav-link" href="#carbon">茶碳汇</a></li>
-          <li class="nav-item"><a class="nav-link" href="#market">交易中心</a></li>
+          <li class="nav-item">
+            <router-link class="nav-link" exact-active-class="active" to="/">首页</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" active-class="active" to="/culture">茶文旅</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" active-class="active" to="/industry">茶产业</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" active-class="active" to="/tech">茶科技</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" active-class="active" to="/service">茶服务</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" active-class="active" to="/carbon">茶碳汇</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" active-class="active" to="/market">交易中心</router-link>
+          </li>
         </ul>
       </div>
       <div class="d-flex align-items-center gap-3">
         <div class="btn-search"><i class="fas fa-search"></i> <span>搜索</span></div>
-        <button class="btn btn-outline-success rounded-pill position-relative px-3"
-          @click="cartStore.totalCount && openCart()">
+        <button class="btn btn-outline-success rounded-pill position-relative px-3" @click="openCart">
           <i class="fas fa-shopping-cart me-1"></i>购物车
           <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
             v-if="cartStore.totalCount">{{ cartStore.totalCount }}</span>
@@ -35,12 +48,8 @@
   </nav>
 </template>
 
-
-
 <script setup lang="ts">
-
 import { useCartStore } from '@/stores/cart'
-
 
 const cartStore = useCartStore()
 
@@ -48,28 +57,7 @@ function openCart() {
   const event = new CustomEvent('open-cart')
   window.dispatchEvent(event)
 }
-
-
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <style scoped>
 .navbar {
@@ -78,9 +66,7 @@ function openCart() {
   padding: 10px 0;
 }
 
-.navbar-nav {
-  flex-wrap: nowrap;
-}
+.navbar-nav { flex-wrap: nowrap; }
 
 .navbar-brand {
   color: var(--tea-primary) !important;
@@ -137,8 +123,5 @@ function openCart() {
   white-space: nowrap;
   cursor: pointer;
 }
-
-.btn-search i {
-  margin-right: 8px;
-}
+.btn-search i { margin-right: 8px; }
 </style>

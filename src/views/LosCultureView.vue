@@ -7,6 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import Layout from '@/components/shop/Layout.vue'
-import CultureSection from '@/components/shop/CultureSection.vue'
+import Layout from '@/components/shop/LosLayout.vue'
+import CultureSection from '@/components/shop/LosCultureSection.vue'
 </script>

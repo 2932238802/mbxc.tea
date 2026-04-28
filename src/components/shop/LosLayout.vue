@@ -9,8 +9,8 @@
 </template>
 
 <script setup lang="ts">
-import ShopNavbar from '@/components/shop/ShopNavbar.vue'
-import AppFooter from '@/components/shop/AppFooter.vue'
+import ShopNavbar from '@/components/shop/LosShopNavbar.vue'
+import AppFooter from '@/components/shop/LosAppFooter.vue'
 </script>
 
 <style scoped>

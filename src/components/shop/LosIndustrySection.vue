@@ -16,7 +16,7 @@
         <div class="h-100 d-flex flex-column justify-content-center">
           <h3 class="fw-bold mb-3 text-success">安顶山数字茶园示范基地</h3>
           <p class="text-muted mb-4">
-            通过部署智能气象站、土壤墒情监测仪、虫情测报灯等物联网设备，实时采集茶园环境数据。结合遥感卫星影像，实现茶园长势监测、灾害预警和精准施肥灌溉。
+            通过部署智能气象站、土壤墒情监测仪、虫情测报灯等物联网设备，实时采集茶园环境数据结合遥感卫星影像，实现茶园长势监测、灾害预警和精准施肥灌溉
           </p>
           <div class="row g-3">
             <div class="col-6"><div class="p-3 border rounded bg-light"><i class="fas fa-satellite-dish text-primary mb-2"></i><h6 class="fw-bold">全域感知</h6><small class="text-muted">空天地一体化监测体系</small></div></div>

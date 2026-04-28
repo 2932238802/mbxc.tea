@@ -7,6 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import Layout from '@/components/shop/Layout.vue'
-import IndustrySection from '@/components/shop/IndustrySection.vue'
+import Layout from '@/components/shop/LosLayout.vue'
+import IndustrySection from '@/components/shop/LosIndustrySection.vue'
 </script>

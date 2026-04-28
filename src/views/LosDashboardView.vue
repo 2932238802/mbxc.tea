@@ -81,12 +81,12 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useDashboardStore } from '@/stores/dashboard'
-import DashboardSidebar from '@/components/dashboard/DashboardSidebar.vue'
-import MetricCard from '@/components/dashboard/MetricCard.vue'
-import MonthlySalesChart from '@/components/dashboard/MonthlySalesChart.vue'
-import CategoryChart from '@/components/dashboard/CategoryChart.vue'
-import TopProductsChart from '@/components/dashboard/TopProductsChart.vue'
-import OrdersTable from '@/components/dashboard/OrdersTable.vue'
+import DashboardSidebar from '@/components/dashboard/LosDashboardSidebar.vue'
+import MetricCard from '@/components/dashboard/LosMetricCard.vue'
+import MonthlySalesChart from '@/components/dashboard/LosMonthlySalesChart.vue'
+import CategoryChart from '@/components/dashboard/LosCategoryChart.vue'
+import TopProductsChart from '@/components/dashboard/LosTopProductsChart.vue'
+import OrdersTable from '@/components/dashboard/LosOrdersTable.vue'
 const store = useDashboardStore()
 function formatMoney(v: number) { return `¥${v.toLocaleString()}` }
 function formatNum(v: number) { return v.toLocaleString() }

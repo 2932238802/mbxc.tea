@@ -1,7 +1,18 @@
+
+<!-- 
+<HeroSwiper />
+- 这个就是大标题
+-  
+
+<div class="col-md-4" v-for="item in modules" :key="item.path">
+- 这里的model 就是 我们项目的 主要几个模块
+
+-->
 <template>
   <Layout>
     <HeroSwiper />
     <div class="container py-5">
+
       <section class="intro-section mb-5">
         <div class="row align-items-center g-4">
           <div class="col-lg-6">
@@ -9,7 +20,7 @@
               <span class="badge bg-success rounded-pill px-3 py-2 mb-3">安顶山云雾茶</span>
               <h2 class="fw-bold text-success mb-3">一站式茶产业互联网综合服务平台</h2>
               <p class="text-muted mb-4">
-                茗不虚传整合茶文旅、数字茶园、茶科技、供应链服务、茶碳汇和云端交易能力，打造面向消费者、茶企与产业管理者的数字化服务入口。
+                茗不虚传整合茶文旅、数字茶园、茶科技、供应链服务、茶碳汇和云端交易能力，打造面向消费者、茶企与产业管理者的数字化服务入口
               </p>
               <div class="d-flex flex-wrap gap-2">
                 <router-link to="/culture" class="btn btn-success rounded-pill px-4">体验茶文旅</router-link>
@@ -44,16 +55,16 @@
 </template>
 
 <script setup lang="ts">
-import Layout from '@/components/shop/Layout.vue'
-import HeroSwiper from '@/components/shop/HeroSwiper.vue'
+import Layout from '@/components/shop/LosLayout.vue'
+import HeroSwiper from '@/components/shop/LosSwiper.vue'
 
 const modules = [
-  { path: '/culture', title: '茶文旅', icon: 'fa-mountain-sun', desc: '采茶、炒茶、研学与景区体验预约。' },
-  { path: '/industry', title: '茶产业', icon: 'fa-seedling', desc: '数字茶园与未来茶场产业能力展示。' },
-  { path: '/tech', title: '茶科技', icon: 'fa-microchip', desc: '溯源秤、茶标机、智能硬件与茶园元宇宙。' },
-  { path: '/service', title: '茶服务', icon: 'fa-bullhorn', desc: '品牌营销、市场调研与供应链金融。' },
-  { path: '/carbon', title: '茶碳汇', icon: 'fa-tree', desc: '茶园碳汇价值、绿色资产与交易案例。' },
-  { path: '/market', title: '交易中心', icon: 'fa-bag-shopping', desc: '云雾茶预定与茶小泽文创周边购买。' },
+  { path: '/culture', title: '茶文旅', icon: 'fa-mountain-sun', desc: '采茶、炒茶、研学与景区体验预约' },
+  { path: '/industry', title: '茶产业', icon: 'fa-seedling', desc: '数字茶园与未来茶场产业能力展示' },
+  { path: '/tech', title: '茶科技', icon: 'fa-microchip', desc: '溯源秤、茶标机、智能硬件与茶园元宇宙' },
+  { path: '/service', title: '茶服务', icon: 'fa-bullhorn', desc: '品牌营销、市场调研与供应链金融' },
+  { path: '/carbon', title: '茶碳汇', icon: 'fa-tree', desc: '茶园碳汇价值、绿色资产与交易案例' },
+  { path: '/market', title: '交易中心', icon: 'fa-bag-shopping', desc: '云雾茶预定与茶小泽文创周边购买' },
 ]
 </script>
 

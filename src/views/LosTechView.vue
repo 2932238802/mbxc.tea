@@ -9,9 +9,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import Layout from '@/components/shop/Layout.vue'
-import TechSection from '@/components/shop/TechSection.vue'
-import MetaversePage from '@/components/shop/MetaversePage.vue'
+import Layout from '@/components/shop/LosLayout.vue'
+import TechSection from '@/components/shop/LosTechSection.vue'
+import MetaversePage from '@/components/shop/LosMetaversePage.vue'
 
 const showMetaverse = ref(false)
 </script>

@@ -39,6 +39,7 @@ export const useCartStore = defineStore('cart', () => {
     save(items.value)
   }
 
+  
   function updateQty(idx: number, qty: number) {
     if (idx >= 0 && idx < items.value.length) {
       items.value[idx].qty = Math.min(99, Math.max(1, Math.round(qty)))

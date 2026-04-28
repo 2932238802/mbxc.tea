@@ -7,9 +7,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import MascotEntry from '@/components/shared/MascotEntry.vue'
-import AiChatbot from '@/components/shared/AiChatbot.vue'
-import ImagePreviewModal from '@/components/shared/ImagePreviewModal.vue'
+import MascotEntry from '@/components/shared/LosMascotEntry.vue'
+import AiChatbot from '@/components/shared/LosAiChatbot.vue'
+import ImagePreviewModal from '@/components/shared/LosImagePreviewModal.vue'
 
 const showAiChat = ref(false)
 const imagePreviewRef = ref<InstanceType<typeof ImagePreviewModal>>()

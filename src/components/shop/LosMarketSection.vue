@@ -21,7 +21,7 @@
             <div class="card border-0 shadow-sm p-4 h-100">
               <h4 class="fw-bold mb-2"><i class="fas fa-seedling text-success me-2"></i> 茶叶预定</h4>
               <p class="text-muted mb-4">
-                安顶云雾茶<br>一脉千年贡茶底蕴，始于三国东吴皇宴臻饮，明洪武年间钦定贡茶，盛誉延绵至清。扎根富阳安顶山350亩核心产区，坐拥"天空之境"独特高山云雾小气候，凝山水灵气成茶，手工炒制技艺为杭州市级非遗。
+                安顶云雾茶<br>一脉千年贡茶底蕴，始于三国东吴皇宴臻饮，明洪武年间钦定贡茶，盛誉延绵至清扎根富阳安顶山350亩核心产区，坐拥"天空之境"独特高山云雾小气候，凝山水灵气成茶，手工炒制技艺为杭州市级非遗
               </p>
               <div class="row g-3">
                 <div class="col-md-6" v-for="tea in preorderTeas" :key="tea.grade">
@@ -259,7 +259,7 @@
                     <div class="col-12 d-grid"><button class="btn btn-success rounded-pill" @click="submitOrder"><i
                           class="fas fa-check me-2"></i>提交订单</button></div>
                     <div class="col-12">
-                      <div class="text-muted small">提交后平台客服会与您确认【发货批次】与【支付方式】。</div>
+                      <div class="text-muted small">提交后平台客服会与您确认【发货批次】与【支付方式】</div>
                     </div>
                   </div>
                 </div>
@@ -280,7 +280,7 @@
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useCartStore } from '@/stores/cart'
 import { TEA_PRODUCTS, normalizeTeaSpec, calcTeaPrice, clampQty } from '@/utils/products'
-import ProductCard from './ProductCard.vue'
+import ProductCard from './LosProductCard.vue'
 import { Toast } from 'bootstrap'
 
 const cart = useCartStore()
@@ -306,7 +306,7 @@ const preorderResult = ref('')
 
 function submitPreorder() {
   if (!preorderForm.grade) return
-  preorderResult.value = `✅ 预定已提交：${preorderForm.grade} · ${preorderForm.qty}盒。请联系客服确认【发货批次】与【支付方式】。`
+  preorderResult.value = `✅ 预定已提交：${preorderForm.grade} · ${preorderForm.qty}盒请联系客服确认【发货批次】与【支付方式】`
 }
 
 // Preorder Modal

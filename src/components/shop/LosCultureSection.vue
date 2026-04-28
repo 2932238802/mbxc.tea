@@ -9,7 +9,7 @@
         <div class="card border-0 shadow-sm p-4 h-100">
           <h4 class="fw-bold mb-2"><i class="fas fa-mountain-sun text-success me-2"></i> 安顶山文旅体验</h4>
           <p class="text-muted mb-4">
-            线上预约采茶、非遗炒茶与研学体验。提交后可在手机端完成支付预约金与短信确认，到景区凭预约码核销。
+            线上预约采茶、非遗炒茶与研学体验提交后可在手机端完成支付预约金与短信确认，到景区凭预约码核销
           </p>
           <div class="row g-3">
             <div class="col-md-4">
@@ -80,7 +80,7 @@ const booked = ref(false)
 
 function submitBooking() {
   if (!project.value || !date.value || !people.value) return
-  result.value = `已提交预约：${project.value} · ${date.value} · ${people.value}人。请继续完成预约金支付以锁定名额。`
+  result.value = `已提交预约：${project.value} · ${date.value} · ${people.value}人请继续完成预约金支付以锁定名额`
   booked.value = true
 }
 

@@ -7,6 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import Layout from '@/components/shop/Layout.vue'
-import ServiceSection from '@/components/shop/ServiceSection.vue'
+import Layout from '@/components/shop/LosLayout.vue'
+import ServiceSection from '@/components/shop/LosServiceSection.vue'
 </script>

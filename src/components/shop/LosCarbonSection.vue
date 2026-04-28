@@ -9,7 +9,7 @@
         <div class="col-md-5">
           <div class="card border-0 shadow-sm p-4">
             <h4 class="fw-bold mb-3"><i class="fas fa-tree text-success me-2"></i> 茶园碳汇价值</h4>
-            <p class="text-muted mb-4">农业是重要的温室气体排放源之一，同时也有巨大的碳汇能力。茶园具有很高的植被覆盖率，茶树树冠覆盖面积大，固碳能力强。</p>
+            <p class="text-muted mb-4">农业是重要的温室气体排放源之一，同时也有巨大的碳汇能力茶园具有很高的植被覆盖率，茶树树冠覆盖面积大，固碳能力强</p>
             <div class="mb-3">
               <div class="carbon-tag"><i class="fas fa-check-circle me-1"></i> 政府承诺: 2030碳达峰 / 2060碳中和</div>
               <div class="carbon-tag"><i class="fas fa-check-circle me-1"></i> 产业优势: 产业链最长、数字化基础好</div>

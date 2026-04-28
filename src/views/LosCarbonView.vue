@@ -6,7 +6,7 @@
           <span class="badge bg-success rounded-pill px-3 py-2 mb-3">绿水青山就是金山银山</span>
           <h1 class="page-title">茶碳汇</h1>
           <p class="page-subtitle">
-            以安顶山数字茶园为基础，围绕茶园固碳、绿色种植、低碳加工与碳汇资产管理，探索茶产业绿色价值转化路径。
+            以安顶山数字茶园为基础，围绕茶园固碳、绿色种植、低碳加工与碳汇资产管理，探索茶产业绿色价值转化路径
           </p>
         </div>
       </section>
@@ -17,7 +17,7 @@
             <div class="carbon-card h-100">
               <h3 class="fw-bold mb-3"><i class="fas fa-tree text-success me-2"></i>茶园碳汇价值</h3>
               <p class="text-muted mb-4">
-                农业是重要的温室气体排放源之一，同时也具备巨大的碳汇能力。安顶山茶园植被覆盖率高、茶树树冠覆盖面积大，具备长期固碳与生态价值沉淀能力。
+                农业是重要的温室气体排放源之一，同时也具备巨大的碳汇能力安顶山茶园植被覆盖率高、茶树树冠覆盖面积大，具备长期固碳与生态价值沉淀能力
               </p>
               <div class="d-flex flex-column gap-2">
                 <div class="carbon-tag"><i class="fas fa-check-circle me-1"></i> 政府承诺：2030碳达峰 / 2060碳中和</div>
@@ -52,23 +52,23 @@
 </template>
 
 <script setup lang="ts">
-import Layout from '@/components/shop/Layout.vue'
+import Layout from '@/components/shop/LosLayout.vue'
 
 const abilities = [
   {
     title: '数字化监测',
     icon: 'fa-satellite-dish',
-    desc: '通过物联网设备采集土壤、气象、虫情与茶园长势数据，为碳汇核算提供可信基础。',
+    desc: '通过物联网设备采集土壤、气象、虫情与茶园长势数据，为碳汇核算提供可信基础',
   },
   {
     title: '绿色种植',
     icon: 'fa-leaf',
-    desc: '优化施肥、灌溉与病虫害管理，减少农业投入品浪费，提升茶园生态系统稳定性。',
+    desc: '优化施肥、灌溉与病虫害管理，减少农业投入品浪费，提升茶园生态系统稳定性',
   },
   {
     title: '碳资产管理',
     icon: 'fa-chart-line',
-    desc: '沉淀茶园碳汇数据资产，支持碳减排评估、绿色品牌传播和未来交易场景对接。',
+    desc: '沉淀茶园碳汇数据资产，支持碳减排评估、绿色品牌传播和未来交易场景对接',
   },
 ]
 </script>

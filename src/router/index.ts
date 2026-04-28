@@ -6,42 +6,42 @@ const router = createRouter({
     {
       path: '/',
       name: 'shop',
-      component: () => import('@/views/ShopView.vue'),
+      component: () => import('@/views/LosIndexView.vue'),
     },
     {
       path: '/culture',
       name: 'culture',
-      component: () => import('@/views/CultureView.vue'),
+      component: () => import('@/views/LosCultureView.vue'),
     },
     {
       path: '/industry',
       name: 'industry',
-      component: () => import('@/views/IndustryView.vue'),
+      component: () => import('@/views/LosIndustryView.vue'),
     },
     {
       path: '/tech',
       name: 'tech',
-      component: () => import('@/views/TechView.vue'),
+      component: () => import('@/views/LosTechView.vue'),
     },
     {
       path: '/service',
       name: 'service',
-      component: () => import('@/views/ServiceView.vue'),
+      component: () => import('@/views/LosServiceView.vue'),
     },
     {
       path: '/carbon',
       name: 'carbon',
-      component: () => import('@/views/CarbonView.vue'),
+      component: () => import('@/views/LosCarbonView.vue'),
     },
     {
       path: '/market',
       name: 'market',
-      component: () => import('@/views/MarketView.vue'),
+      component: () => import('@/views/LosMarketView.vue'),
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: () => import('@/views/DashboardView.vue'),
+      component: () => import('@/views/LosDashboardView.vue'),
     },
     {
       path: '/:pathMatch(.*)*',

@@ -9,28 +9,28 @@
         <div class="service-card text-center">
           <div class="service-icon"><i class="fas fa-weight-hanging"></i></div>
           <h5 class="service-title">智能溯源秤</h5>
-          <p class="service-desc">茶青收购、加工称重数字化。记录产地、品种、等级及茶农信息，实现源头可追溯。</p>
+          <p class="service-desc">茶青收购、加工称重数字化记录产地、品种、等级及茶农信息，实现源头可追溯</p>
         </div>
       </div>
       <div class="col-md-3 col-sm-6">
         <div class="service-card text-center">
           <div class="service-icon"><i class="fas fa-qrcode"></i></div>
           <h5 class="service-title">茶标自助机</h5>
-          <p class="service-desc">一物一码，扫码即查。为每一份安顶云雾茶生成唯一的数字身份证，保障品牌信誉。</p>
+          <p class="service-desc">一物一码，扫码即查为每一份安顶云雾茶生成唯一的数字身份证，保障品牌信誉</p>
         </div>
       </div>
       <div class="col-md-3 col-sm-6">
         <div class="service-card text-center">
           <div class="service-icon"><i class="fas fa-microchip"></i></div>
           <h5 class="service-title">智能硬件集成</h5>
-          <p class="service-desc">整合气象站、视频监控、水肥一体化设备，构建完整的茶园物联网生态系统。</p>
+          <p class="service-desc">整合气象站、视频监控、水肥一体化设备，构建完整的茶园物联网生态系统</p>
         </div>
       </div>
       <div class="col-md-3 col-sm-6">
         <div class="service-card text-center" @click="$emit('openMetaverse')" role="button" style="cursor:pointer">
           <div class="service-icon"><i class="fas fa-vr-cardboard"></i></div>
           <h5 class="service-title">茶园元宇宙</h5>
-          <p class="service-desc">利用 VR/AR 技术，让消费者身临其境体验安顶山云雾缭绕的采茶场景，促进茶文旅融合。</p>
+          <p class="service-desc">利用 VR/AR 技术，让消费者身临其境体验安顶山云雾缭绕的采茶场景，促进茶文旅融合</p>
         </div>
       </div>
     </div>

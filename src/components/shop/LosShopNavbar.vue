@@ -58,6 +58,15 @@
           </router-link>
         </template>
 
+        <a
+          href="https://github.com/2932238802/LosTeaWeb"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-outline-success rounded-pill px-3 source-entry"
+        >
+          <i class="fab fa-github me-1"></i>访问源码
+        </a>
+
         <button class="btn btn-outline-success rounded-pill position-relative px-3 cart-btn" @click="openCart">
           <i class="fas fa-shopping-cart me-1"></i>购物车
           <span class="cart-count-badge">

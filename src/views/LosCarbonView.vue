@@ -22,7 +22,7 @@
                   <div class="carbon-tag"><span class="tag-mark">✓</span> 产业优势：产业链长、数字化基础好</div>
                   <div class="carbon-tag"><span class="tag-mark">✓</span> 社会价值：绿色转型与乡村振兴联动</div>
                 </div>
-                <button class="btn btn-success rounded-pill mt-4 px-4">查看碳汇交易案例</button>
+                <button class="btn btn-success rounded-pill mt-4 px-4" @click="showCarbonCase = true">查看碳汇交易案例</button>
               </div>
             </div>
             <div class="col-lg-7">
@@ -55,15 +55,77 @@
           </div>
         </section>
       </div>
+      <Teleport to="body">
+        <div v-if="showCarbonCase" class="modal fade show d-block carbon-case-modal" tabindex="-1">
+          <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content carbon-case-content">
+              <div class="modal-header carbon-case-header">
+                <div>
+                  <span class="case-kicker">Carbon Trading Flow</span>
+                  <h5 class="modal-title fw-bold mt-1">安顶山茶园碳汇交易流程图</h5>
+                </div>
+                <button type="button" class="btn-close" @click="showCarbonCase = false"></button>
+              </div>
+              <div class="modal-body">
+                <div class="case-summary-grid mb-4">
+                  <div class="case-summary-card">
+                    <strong>350亩</strong>
+                    <span>核心茶园面积</span>
+                  </div>
+                  <div class="case-summary-card">
+                    <strong>120 tCO₂e</strong>
+                    <span>预计年度碳汇量</span>
+                  </div>
+                  <div class="case-summary-card">
+                    <strong>¥28,000</strong>
+                    <span>示范交易价值</span>
+                  </div>
+                </div>
+
+                <div class="carbon-flow">
+                  <div class="flow-step" v-for="(step, index) in carbonFlow" :key="step.title">
+                    <div class="flow-icon"><span>{{ step.icon }}</span></div>
+                    <h6>{{ step.title }}</h6>
+                    <p>{{ step.desc }}</p>
+                    <div v-if="index < carbonFlow.length - 1" class="flow-arrow">
+                      <i class="fas fa-arrow-right"></i>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="case-note mt-4">
+                  <div class="case-note-icon">✓</div>
+                  <div>
+                    <strong>绿色价值转化说明</strong>
+                    <p>通过数字茶园采集、碳汇核算、资产登记和企业认购，将茶园生态价值转化为可展示、可评估、可交易的绿色资产</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-backdrop fade show carbon-case-backdrop" @click="showCarbonCase = false"></div>
+        </div>
+      </Teleport>
     </MeteorPage>
   </Layout>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { assetUrl } from '@/utils/asset'
 import { visualIcon, type VisualKey } from '@/utils/visual'
 import Layout from '@/components/shop/LosLayout.vue'
 import MeteorPage from '@/components/shared/LosMeteorPage.vue'
+
+const showCarbonCase = ref(false)
+
+const carbonFlow = [
+  { icon: '📡', title: '数字茶园采集', desc: '采集茶园面积、气象、土壤、长势和绿色农事记录' },
+  { icon: '🧮', title: '碳汇核算', desc: '基于茶树覆盖、植被固碳和低碳生产形成核算结果' },
+  { icon: '📄', title: '资产登记', desc: '沉淀碳汇数据档案，形成可追溯的绿色资产台账' },
+  { icon: '🤝', title: '企业认购', desc: '对接低碳采购、公益认购和品牌绿色营销场景' },
+  { icon: '🌱', title: '品牌披露', desc: '输出低碳证明、传播素材和绿色价值展示内容' },
+]
 
 const stats = [
   { value: '2030', label: '碳达峰' },
@@ -224,5 +286,168 @@ const metrics = [
 .metric-card span {
   color: var(--tea-text-muted);
   font-weight: 700;
+}
+
+.carbon-case-modal {
+  z-index: 3005;
+}
+
+.carbon-case-modal .modal-dialog {
+  pointer-events: auto;
+  z-index: 3010;
+}
+
+.carbon-case-content {
+  overflow: hidden;
+  border: 1px solid rgba(0, 104, 59, 0.12);
+  border-radius: 28px;
+  color: var(--tea-text);
+  background:
+    radial-gradient(circle at 16% 8%, rgba(18, 183, 106, 0.16), transparent 28%),
+    var(--tea-surface);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+}
+
+.carbon-case-header {
+  border-color: var(--tea-border);
+  padding: 22px 26px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.case-kicker {
+  display: inline-flex;
+  padding: 5px 12px;
+  border-radius: 999px;
+  color: var(--tea-primary);
+  background: var(--tea-primary-soft);
+  font-size: .78rem;
+  font-weight: 900;
+}
+
+.case-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.case-summary-card {
+  padding: 18px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid var(--tea-border);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.case-summary-card strong {
+  display: block;
+  color: var(--tea-primary);
+  font-size: 1.45rem;
+  font-weight: 950;
+}
+
+.case-summary-card span {
+  display: block;
+  margin-top: 6px;
+  color: var(--tea-text-muted);
+  font-weight: 800;
+  font-size: .86rem;
+}
+
+.carbon-flow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+.flow-step {
+  position: relative;
+  min-height: 210px;
+  padding: 20px 16px;
+  border: 1px solid var(--tea-border);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 12px 28px rgba(0, 104, 59, 0.08);
+}
+
+.flow-icon {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 14px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: var(--tea-primary-soft);
+  font-size: 1.45rem;
+}
+
+.flow-step h6 {
+  color: var(--tea-primary);
+  font-weight: 900;
+}
+
+.flow-step p {
+  margin: 0;
+  color: var(--tea-text-muted);
+  line-height: 1.75;
+  font-size: .88rem;
+}
+
+.flow-arrow {
+  position: absolute;
+  top: 46%;
+  right: -18px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--tea-primary);
+  box-shadow: 0 8px 18px rgba(0, 104, 59, 0.22);
+}
+
+.case-note {
+  display: flex;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 22px;
+  color: var(--tea-primary);
+  background: var(--tea-primary-soft);
+}
+
+.case-note-icon {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--tea-primary);
+  font-weight: 900;
+}
+
+.case-note p {
+  margin: 4px 0 0;
+  color: var(--tea-text-muted);
+  line-height: 1.75;
+}
+
+.carbon-case-backdrop {
+  z-index: 2995;
+  opacity: .58 !important;
+}
+
+@media (max-width: 992px) {
+  .carbon-flow,
+  .case-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-arrow {
+    display: none;
+  }
 }
 </style>

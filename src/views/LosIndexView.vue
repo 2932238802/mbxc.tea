@@ -38,7 +38,6 @@
       <section class="quick-nav mb-5">
         <div class="section-title-wrapper">
           <h2 class="section-title">核心模块</h2>
-          <span class="text-muted small">点击进入独立页面</span>
         </div>
         <div class="row g-4">
           <div class="col-md-4" v-for="item in modules" :key="item.path">

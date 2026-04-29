@@ -16,10 +16,10 @@
                   <label class="form-label">邮箱</label>
                   <input
                     v-model.trim="form.email"
-                    type="email"
+                    type="text"
                     class="form-control auth-input"
-                    placeholder="请输入邮箱"
-                    autocomplete="email"
+                    placeholder="请输入邮箱 / 管理员账号"
+                    autocomplete="username"
                   >
                 </div>
 
@@ -94,8 +94,8 @@ function isValidEmail(email: string) {
 async function handleSubmit() {
   error.value = ''
 
-  if (!isValidEmail(form.email)) {
-    error.value = '请输入正确的邮箱'
+  if (form.email !== 'Admin' && !isValidEmail(form.email)) {
+    error.value = '请输入正确的邮箱或管理员账号'
     return
   }
 

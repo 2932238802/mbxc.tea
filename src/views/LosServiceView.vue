@@ -5,6 +5,7 @@
       title="茶服务"
       subtitle="面向茶企、合作社、茶农和文旅经营主体，提供品牌增长、茶金融、市场调研和供应链协同服务"
       :stats="stats"
+      :bg-image="assetUrl('总览.jpg')"
     >
       <ServiceSection />
     </MeteorPage>
@@ -12,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import { assetUrl } from '@/utils/asset'
 import Layout from '@/components/shop/LosLayout.vue'
 import ServiceSection from '@/components/shop/LosServiceSection.vue'
 import MeteorPage from '@/components/shared/LosMeteorPage.vue'

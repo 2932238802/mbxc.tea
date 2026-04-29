@@ -78,7 +78,7 @@
             </div>
             <div class="col-12">
               <label class="form-label mb-1">预约日期</label>
-              <input type="date" class="form-control" v-model="date" required>
+              <input type="date" class="form-control" v-model="date" :min="today" required>
             </div>
             <div class="col-12">
               <label class="form-label mb-1">人数</label>
@@ -132,6 +132,7 @@ const people = ref('')
 const phone = ref('')
 const result = ref('')
 const booked = ref(false)
+const today = new Date().toISOString().slice(0, 10)
 
 const experiences: Array<{ name: string; visual: VisualKey; desc: string }> = [
   { name: '采茶体验', visual: 'leaf', desc: '深入核心茶园，亲手采摘春茶鲜叶' },
@@ -157,7 +158,14 @@ function selectProject(name: string) {
 
 function submitBooking() {
   if (!project.value || !date.value || !people.value) return
-  result.value = `已提交预约：${project.value} · ${date.value} · ${people.value}人我们将尽快确认行程`
+
+  if (date.value < today) {
+    result.value = '预约日期不能早于今天，请重新选择日期'
+    booked.value = false
+    return
+  }
+
+  result.value = `已提交预约：${project.value} · ${date.value} · ${people.value}人，我们将尽快确认行程`
   booked.value = true
 }
 

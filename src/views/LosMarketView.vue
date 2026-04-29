@@ -5,6 +5,7 @@
       title="交易中心"
       subtitle="安顶云雾茶预定、茶小泽文创周边"
       :stats="stats"
+      :bg-image="assetUrl('总览.jpg')"
     >
       <MarketSection />
     </MeteorPage>
@@ -12,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import { assetUrl } from '@/utils/asset'
 import Layout from '@/components/shop/LosLayout.vue'
 import MarketSection from '@/components/shop/LosMarketSection.vue'
 import MeteorPage from '@/components/shared/LosMeteorPage.vue'

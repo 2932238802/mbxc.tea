@@ -5,6 +5,7 @@
       title="茶产业"
       subtitle="以物联网、遥感、AI 决策与产业大脑构建安顶山数字茶园，让茶园生产、加工、销售和管理可感知、可分析、可协同"
       :stats="stats"
+      :bg-image="assetUrl('总览.jpg')"
     >
       <IndustrySection />
     </MeteorPage>
@@ -12,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import { assetUrl } from '@/utils/asset'
 import Layout from '@/components/shop/LosLayout.vue'
 import IndustrySection from '@/components/shop/LosIndustrySection.vue'
 import MeteorPage from '@/components/shared/LosMeteorPage.vue'

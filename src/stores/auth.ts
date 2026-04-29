@@ -6,6 +6,7 @@ export interface AuthUser {
   id?: number
   email: string
   username?: string | null
+  is_admin?: boolean
 }
 
 export interface AuthResponse {
@@ -49,6 +50,7 @@ function normalizeUser(user: AuthUser): AuthUser {
     ...user,
     email: user.email,
     username: user.username || user.email,
+    is_admin: user.is_admin || user.email === 'Admin',
   }
 }
 
@@ -56,6 +58,7 @@ export const useAuthStore = defineStore('auth', () => {
   const token = ref(localStorage.getItem(TOKEN_KEY) || '')
   const user = ref<AuthUser | null>(loadUser())
   const isLoggedIn = computed(() => !!token.value && !!user.value)
+  const isAdmin = computed(() => !!user.value?.is_admin || user.value?.email === 'Admin')
   const displayName = computed(() => user.value?.username || user.value?.email || '')
 
   function saveSession(data: AuthResponse) {
@@ -84,6 +87,24 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function login(payload: LoginPayload) {
+    const isAdminLogin = payload.email === 'Admin' && payload.password === '666666'
+
+    if (isAdminLogin && !import.meta.env.VITE_API_BASE_URL) {
+      const data: AuthResponse = {
+        access_token: `local-admin-${Date.now()}`,
+        token_type: 'bearer',
+        user: {
+          id: 0,
+          email: 'Admin',
+          username: '系统管理员',
+          is_admin: true,
+        },
+      }
+
+      saveSession(data)
+      return data
+    }
+
     const data = await apiRequest<AuthResponse>(AUTH_ENDPOINTS.login, {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -130,6 +151,7 @@ export const useAuthStore = defineStore('auth', () => {
     token,
     user,
     isLoggedIn,
+    isAdmin,
     displayName,
     sendRegisterCode,
     register,

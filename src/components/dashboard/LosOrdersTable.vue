@@ -23,7 +23,7 @@
               <td class="fw-bold text-dark">¥{{ order.amount.toLocaleString() }}</td>
               <td class="text-muted"><small><i class="far fa-clock"></i> {{ order.date }}</small></td>
               <td>
-                <span class="badge" :class="statusClass(order.status)">{{ order.status }}</span>
+                <span class="badge" :class="statusClass(order.status)">{{ statusText(order.status) }}</span>
               </td>
             </tr>
           </tbody>
@@ -38,6 +38,16 @@ defineProps<{
   orders?: Array<{ id: number; customer: string; amount: number; status: string; date: string }>
 }>()
 
+function statusText(status: string): string {
+  const map: Record<string, string> = {
+    Completed: '已完成',
+    Shipped: '已发货',
+    Processing: '处理中',
+    Cancelled: '已取消',
+  }
+  return map[status] || status
+}
+
 function statusClass(status: string): string {
   const map: Record<string, string> = {
     Completed: 'bg-success bg-opacity-10 text-success border border-success',
@@ -51,15 +61,28 @@ function statusClass(status: string): string {
 
 <style scoped>
 .card {
-  border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 25px;
+  min-height: 340px;
+  border: 1px solid rgba(0, 104, 59, 0.08);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 16px 45px rgba(0, 104, 59, 0.07);
+  backdrop-filter: blur(18px);
+  overflow: hidden;
+  margin-bottom: 0;
 }
 .card-header {
-  background-color: #fff; border-bottom: 1px solid #f0f0f0;
-  padding: 15px 20px; font-weight: 700; color: var(--tea-dark);
-  border-radius: 12px 12px 0 0 !important; display: flex; align-items: center; gap: 10px;
+  background: rgba(255, 255, 255, 0.68);
+  border-bottom: 1px solid rgba(0, 104, 59, 0.08);
+  padding: 17px 20px;
+  font-weight: 900;
+  color: #163c29;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.table { margin-bottom: 0; }
-.table th { border-top: none; color: #888; font-weight: 600; padding: 12px 15px; }
-.table td { padding: 15px; vertical-align: middle; color: #444; }
-.badge { padding: 6px 12px; border-radius: 6px; font-weight: 500; }
+.card-header .btn { border-radius: 999px; font-weight: 800; }
+.table { margin-bottom: 0; --bs-table-bg: transparent; }
+.table th { border-top: none; color: #7b8a81; font-weight: 900; padding: 14px 16px; background: rgba(248, 252, 250, .78); }
+.table td { padding: 15px 16px; vertical-align: middle; color: #344a3d; border-color: rgba(0, 104, 59, .06); }
+.badge { padding: 6px 12px; border-radius: 999px; font-weight: 800; }
 </style>

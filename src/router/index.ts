@@ -54,7 +54,7 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('@/views/LosDashboardView.vue'),
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true, requiresAdmin: true },
     },
     {
       path: '/:pathMatch(.*)*',
@@ -68,13 +68,31 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const token = localStorage.getItem('losteapy_token')
+  const userRaw = localStorage.getItem('losteapy_user')
+  let isAdmin = false
+
+  try {
+    const user = userRaw ? JSON.parse(userRaw) : null
+    isAdmin = !!user?.is_admin || user?.email === 'Admin'
+  } catch {
+    isAdmin = false
+  }
+
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin)
   const guestOnly = to.matched.some(record => record.meta.guestOnly)
 
   if (requiresAuth && !token) {
     return {
       path: '/login',
       query: { redirect: to.fullPath },
+    }
+  }
+
+  if (requiresAdmin && !isAdmin) {
+    return {
+      path: '/login',
+      query: { redirect: to.fullPath, admin: '1' },
     }
   }
 

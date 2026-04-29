@@ -5,6 +5,7 @@
       title="茶文旅 · 在线预约"
       subtitle="从云雾茶园采摘，到非遗炒茶体验，再到亲子研学课程，提前预约你的安顶山一日茶旅"
       :stats="stats"
+      :bg-image="assetUrl('总览.jpg')"
     >
       <CultureSection />
     </MeteorPage>
@@ -12,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import { assetUrl } from '@/utils/asset'
 import Layout from '@/components/shop/LosLayout.vue'
 import CultureSection from '@/components/shop/LosCultureSection.vue'
 import MeteorPage from '@/components/shared/LosMeteorPage.vue'

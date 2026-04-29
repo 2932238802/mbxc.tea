@@ -4,10 +4,6 @@
       <router-link to="/" class="navbar-brand">
         <img :src="assetUrl('logo.jpg')" alt="Logo" class="brand-logo-img">
         茗不虚传
-        <span v-if="authStore.isLoggedIn" class="brand-user" :title="authStore.user?.email || authStore.displayName">
-          <i class="fas fa-user-circle"></i>
-          <span class="brand-user-text">{{ authStore.user?.email || authStore.displayName }}</span>
-        </span>
       </router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -37,7 +33,7 @@
           </li>
         </ul>
       </div>
-      <div class="navbar-actions d-flex align-items-center gap-3">
+      <div class="navbar-actions d-flex align-items-center gap-2">
         <button class="theme-toggle" type="button" :title="themeStore.isDark ? '切换到亮色主题' : '切换到暗色主题'" @click="themeStore.toggleTheme">
           <i :class="['fas', themeStore.isDark ? 'fa-sun' : 'fa-moon']"></i>
           <span>{{ themeStore.isDark ? '亮色' : '暗色' }}</span>
@@ -51,6 +47,9 @@
           <button class="btn btn-outline-secondary rounded-pill px-3" @click="handleLogout">
             退出
           </button>
+          <router-link v-if="authStore.isAdmin" to="/dashboard" class="btn btn-outline-success rounded-pill px-3 dashboard-entry">
+            <i class="fas fa-chart-pie me-1"></i>数据看板
+          </router-link>
         </template>
 
         <template v-else>
@@ -59,14 +58,12 @@
           </router-link>
         </template>
 
-        <button class="btn btn-outline-success rounded-pill position-relative px-3" @click="openCart">
+        <button class="btn btn-outline-success rounded-pill position-relative px-3 cart-btn" @click="openCart">
           <i class="fas fa-shopping-cart me-1"></i>购物车
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-            v-if="cartStore.totalCount">{{ cartStore.totalCount }}</span>
+          <span class="cart-count-badge">
+            {{ cartStore.totalCount > 99 ? '99+' : cartStore.totalCount }}
+          </span>
         </button>
-        <router-link to="/dashboard" class="btn btn-outline-success rounded-pill px-3">
-          <i class="fas fa-chart-pie me-1"></i>产业大脑
-        </router-link>
       </div>
     </div>
   </nav>
@@ -109,16 +106,18 @@ function handleLogout() {
 .navbar-brand {
   color: var(--tea-primary) !important;
   font-weight: 800;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   text-decoration: none;
+  white-space: nowrap;
+  flex: 0 0 auto;
 }
 
 .brand-logo-img {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   object-fit: contain;
   border-radius: 10px;
 }
@@ -156,7 +155,7 @@ function handleLogout() {
 .nav-link {
   color: var(--tea-text) !important;
   font-weight: 500;
-  margin: 0 10px;
+  margin: 0 7px;
   position: relative;
   padding-bottom: 5px;
   transition: color 0.3s;
@@ -193,20 +192,50 @@ function handleLogout() {
 }
 .btn-search i { margin-right: 8px; }
 
+.cart-btn {
+  overflow: visible;
+}
+
+.cart-count-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: #dc3545;
+  border: 2px solid var(--tea-navbar-bg);
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 4px 10px rgba(220, 53, 69, 0.28);
+  transform: scale(1);
+  transform-origin: center;
+}
+
+.cart-count-badge:empty {
+  display: none;
+}
+
 .theme-toggle {
-  min-width: 76px;
-  height: 38px;
+  min-width: 62px;
+  height: 36px;
   border: 1px solid var(--tea-border);
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 0 12px;
+  gap: 5px;
+  padding: 0 10px;
   color: var(--tea-primary);
   background: var(--tea-surface);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-  font-size: 0.86rem;
+  font-size: 0.82rem;
   font-weight: 700;
   white-space: nowrap;
   transition: transform .2s ease, color .2s ease, background-color .2s ease, border-color .2s ease;
@@ -220,14 +249,15 @@ function handleLogout() {
 }
 
 .user-chip {
-  max-width: 180px;
+  max-width: 150px;
+  height: 36px;
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
-  padding: 6px 12px;
+  padding: 0 11px;
   color: var(--tea-primary);
   background: var(--tea-primary-soft);
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 700;
   white-space: nowrap;
 }
@@ -235,6 +265,25 @@ function handleLogout() {
 .user-chip span {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.navbar-actions .btn {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  white-space: nowrap;
+  font-size: 0.88rem;
+}
+
+@media (max-width: 1400px) {
+  .navbar-brand { font-size: 1.35rem; }
+  .brand-logo-img { width: 34px; height: 34px; }
+  .nav-link { margin: 0 5px; font-size: 0.92rem; }
+  .navbar-actions .btn { padding-left: 0.7rem !important; padding-right: 0.7rem !important; }
+  .user-chip { max-width: 130px; }
 }
 
 @media (max-width: 1200px) {

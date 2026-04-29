@@ -1,53 +1,78 @@
 <template>
-  <div class="card">
-    <div class="card-body d-flex align-items-center">
-      <div class="metric-icon-box" :class="iconBgClass">
-        <i :class="['fas', icon]"></i>
-      </div>
-      <div>
-        <div class="metric-label">{{ label }}</div>
-        <h3 class="metric-value">{{ value }}</h3>
-      </div>
+  <div class="metric-card" :class="`metric-${color}`">
+    <div class="metric-icon-box">
+      <i :class="['fas', icon]"></i>
+    </div>
+    <div class="metric-copy">
+      <div class="metric-label">{{ label }}</div>
+      <h3 class="metric-value">{{ value }}</h3>
+      <span class="metric-trend"><i class="fas fa-arrow-up"></i> 较上月稳步提升</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-
-const props = defineProps<{
+defineProps<{
   label: string
   value: string
   icon: string
   color: 'success' | 'primary' | 'warning' | 'info'
 }>()
-
-const iconBgClass = computed(() => {
-  const map: Record<string, string> = {
-    success: 'bg-light-success',
-    primary: 'bg-light-primary',
-    warning: 'bg-light-warning',
-    info: 'bg-light-info',
-  }
-  return map[props.color] || 'bg-light-success'
-})
 </script>
 
 <style scoped>
-.card {
-  border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-  margin-bottom: 25px; transition: transform 0.2s ease;
+.metric-card {
+  min-height: 132px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 26px;
+  border: 1px solid rgba(0, 104, 59, 0.08);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 16px 45px rgba(0, 104, 59, 0.07);
+  backdrop-filter: blur(18px);
+  transition: transform .22s ease, box-shadow .22s ease;
 }
-.card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+
+.metric-card::after {
+  content: '';
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  right: -40px;
+  top: -54px;
+  border-radius: 50%;
+  background: var(--metric-soft);
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 55px rgba(0, 104, 59, 0.12);
+}
+
 .metric-icon-box {
-  width: 60px; height: 60px; border-radius: 15px;
-  display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-  margin-right: 1rem; flex-shrink: 0;
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  color: var(--metric-color);
+  background: var(--metric-soft);
+  font-size: 1.42rem;
 }
-.bg-light-success { background-color: #e8f5e9; color: #2e7d32; }
-.bg-light-primary { background-color: #e3f2fd; color: #1565c0; }
-.bg-light-warning { background-color: #fff8e1; color: #f57f17; }
-.bg-light-info { background-color: #f3e5f5; color: #6a1b9a; }
-.metric-label { color: #888; font-size: 0.9rem; margin-bottom: 5px; }
-.metric-value { font-size: 1.8rem; font-weight: 800; color: #2c3e50; margin: 0; }
+
+.metric-copy { min-width: 0; }
+.metric-label { color: #738177; font-size: .88rem; font-weight: 800; margin-bottom: 5px; }
+.metric-value { margin: 0; color: #183629; font-size: 1.85rem; font-weight: 950; letter-spacing: -.03em; }
+.metric-trend { display: inline-flex; align-items: center; gap: 4px; margin-top: 7px; color: #6d7d72; font-size: .76rem; font-weight: 700; }
+.metric-trend i { color: #12b76a; }
+
+.metric-success { --metric-color: #008d52; --metric-soft: rgba(18, 183, 106, .13); }
+.metric-primary { --metric-color: #2563eb; --metric-soft: rgba(37, 99, 235, .12); }
+.metric-warning { --metric-color: #f97316; --metric-soft: rgba(249, 115, 22, .13); }
+.metric-info { --metric-color: #9333ea; --metric-soft: rgba(147, 51, 234, .12); }
 </style>

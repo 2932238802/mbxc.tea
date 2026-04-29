@@ -5,6 +5,7 @@
       title="茶科技"
       subtitle="围绕溯源秤、茶标机、智能硬件和茶园元宇宙，构建从生产现场到消费者端的可信数字链路"
       :stats="stats"
+      :bg-image="assetUrl('总览.jpg')"
     >
       <TechSection @open-metaverse="showMetaverse = true" />
     </MeteorPage>
@@ -14,6 +15,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { assetUrl } from '@/utils/asset'
 import Layout from '@/components/shop/LosLayout.vue'
 import TechSection from '@/components/shop/LosTechSection.vue'
 import MetaversePage from '@/components/shop/LosMetaversePage.vue'

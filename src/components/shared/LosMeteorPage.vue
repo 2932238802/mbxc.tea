@@ -1,5 +1,12 @@
 <template>
   <section class="meteor-page">
+    <div
+      v-if="bgImage"
+      class="meteor-bg-image"
+      :style="{ backgroundImage: `url(${bgImage})` }"
+      aria-hidden="true"
+    ></div>
+
     <div class="meteor-layer" aria-hidden="true">
       <span v-for="n in 7" :key="n" :class="['meteor', `meteor-${n}`]"></span>
     </div>
@@ -31,6 +38,7 @@ defineProps<{
   title: string
   subtitle: string
   stats?: Array<{ value: string; label: string }>
+  bgImage?: string
 }>()
 </script>
 
@@ -43,7 +51,16 @@ defineProps<{
     radial-gradient(circle at 16% 10%, rgba(74, 222, 128, 0.14), transparent 28%),
     radial-gradient(circle at 82% 18%, rgba(251, 191, 36, 0.08), transparent 24%),
     radial-gradient(circle at 50% 86%, rgba(34, 197, 94, 0.08), transparent 30%),
-    linear-gradient(180deg, var(--tea-page-bg), var(--tea-bg));
+    linear-gradient(180deg, rgba(247, 252, 249, 0.78), rgba(252, 252, 252, 0.78));
+  backdrop-filter: blur(8px);
+}
+
+:root[data-theme="dark"] .meteor-page {
+  background:
+    radial-gradient(circle at 16% 10%, rgba(74, 222, 128, 0.10), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(251, 191, 36, 0.06), transparent 24%),
+    radial-gradient(circle at 50% 86%, rgba(34, 197, 94, 0.06), transparent 30%),
+    linear-gradient(180deg, rgba(11, 23, 17, 0.86), rgba(8, 18, 13, 0.86));
 }
 
 .meteor-page::before {
@@ -57,6 +74,24 @@ defineProps<{
     linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
   background-size: 46px 46px;
   mask-image: radial-gradient(circle at center, #000 0%, transparent 72%);
+}
+
+.meteor-bg-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: repeat-y;
+  opacity: 0.05;
+  mask-image: radial-gradient(ellipse at center, #000 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 85%);
+}
+
+:root[data-theme="dark"] .meteor-bg-image {
+  opacity: 0.04;
+  filter: brightness(0.8);
 }
 
 .meteor-layer {

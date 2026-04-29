@@ -19,10 +19,10 @@
         <div class="col-lg-2 col-md-4 mb-4">
           <h5 class="footer-title">友情链接</h5>
           <ul>
-            <li><a href="" @click.prevent>中国茶叶流通协会</a></li>
-            <li><a href="" @click.prevent>农业农村部</a></li>
-            <li><a href="" @click.prevent>安顶山云雾茶官网</a></li>
-            <li><a href="" @click.prevent>茶小智产业大脑</a></li>
+            <li><a href="https://www.ctma.com.cn/" target="_blank" rel="noopener noreferrer">中国茶叶流通协会</a></li>
+            <li><a href="https://www.moa.gov.cn/" target="_blank" rel="noopener noreferrer">农业农村部</a></li>
+            <li><a href="https://www.fuyang.gov.cn/art/2023/4/10/art_1385998_59320996.html" target="_blank" rel="noopener noreferrer">富阳安顶云雾茶</a></li>
+            <li><a href="https://365tea.net/" target="_blank" rel="noopener noreferrer">茶小智产业大脑</a></li>
           </ul>
         </div>
         <div class="col-lg-4 col-md-4 mb-4 footer-contact">

@@ -63,7 +63,7 @@ const slides = [
   {
     image: assetUrl('数字2.jpg'),
     kicker: '数字茶园示范基地',
-    title: '空天地一体化监测<br>驱动智慧茶园管理',
+    title: '天空地一体化监测<br>驱动智慧茶园管理',
     subtitle: '物联网感知 · AI 农事建议 · 茶园长势监测',
     button: '查看茶产业',
     link: '/industry',
@@ -146,7 +146,7 @@ onUnmounted(() => {
   position: absolute;
   inset: auto 0 0;
   height: 42%;
-  background: linear-gradient(180deg, rgba(5, 18, 10, 0), rgba(5, 18, 10, 0.74));
+  background: linear-gradient(180deg, rgba(5, 18, 10, 0), rgba(5, 18, 10, 0.34));
   pointer-events: none;
 }
 
@@ -154,9 +154,9 @@ onUnmounted(() => {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 36%, rgba(255, 255, 255, 0.14), transparent 22%),
-    linear-gradient(90deg, rgba(2, 36, 17, 0.82), rgba(0, 64, 32, 0.36) 45%, rgba(2, 36, 17, 0.78)),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18));
+    radial-gradient(circle at 50% 36%, rgba(255, 255, 255, 0.18), transparent 24%),
+    linear-gradient(90deg, rgba(2, 36, 17, 0.34), rgba(0, 64, 32, 0.12) 45%, rgba(2, 36, 17, 0.32)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06));
 }
 
 .hero-decor {
@@ -186,10 +186,10 @@ onUnmounted(() => {
   max-width: 920px;
   padding: 44px 48px;
   border-radius: 28px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08));
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(8px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.10));
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.20);
+  backdrop-filter: blur(10px);
 }
 
 .hero-kicker {

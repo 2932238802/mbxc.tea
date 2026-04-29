@@ -16,7 +16,9 @@ import AppFooter from '@/components/shop/LosAppFooter.vue'
 <style scoped>
 .shop-page {
   min-height: 100vh;
-  background-color: #f7fcf9;
+  color: var(--tea-text);
+  background-color: var(--tea-page-bg);
+  transition: color .2s ease, background-color .2s ease;
 }
 .page-offset {
   padding-top: 76px;

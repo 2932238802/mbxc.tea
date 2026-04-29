@@ -9,6 +9,18 @@ const router = createRouter({
       component: () => import('@/views/LosIndexView.vue'),
     },
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/LosLoginView.vue'),
+      meta: { guestOnly: true },
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('@/views/LosRegisterView.vue'),
+      meta: { guestOnly: true },
+    },
+    {
       path: '/culture',
       name: 'culture',
       component: () => import('@/views/LosCultureView.vue'),
@@ -42,6 +54,7 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('@/views/LosDashboardView.vue'),
+      meta: { requiresAuth: true },
     },
     {
       path: '/:pathMatch(.*)*',
@@ -51,6 +64,25 @@ const router = createRouter({
   scrollBehavior() {
     return { top: 0 }
   },
+})
+
+router.beforeEach((to) => {
+  const token = localStorage.getItem('losteapy_token')
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const guestOnly = to.matched.some(record => record.meta.guestOnly)
+
+  if (requiresAuth && !token) {
+    return {
+      path: '/login',
+      query: { redirect: to.fullPath },
+    }
+  }
+
+  if (guestOnly && token) {
+    return '/'
+  }
+
+  return true
 })
 
 export default router

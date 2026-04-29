@@ -1,5 +1,5 @@
 <template>
-  <section id="service" class="mb-5">
+  <section id="service" class="service-section mb-5">
     <div class="section-title-wrapper">
       <h2 class="section-title">茶服务</h2>
       <ul class="nav section-tabs">
@@ -17,6 +17,7 @@
     </div>
 
     <div class="service-hero mb-4">
+      <div class="service-hero-icon">{{ visualIcon(currentTab.visual) }}</div>
       <div>
         <span class="service-badge">{{ currentTab.badge }}</span>
         <h3 class="fw-bold mt-3 mb-2">{{ currentTab.title }}</h3>
@@ -28,7 +29,7 @@
       <div class="col-md-4" v-for="item in currentServices" :key="item.title">
         <div class="service-card">
           <div class="service-icon" :class="item.iconClass">
-            <i :class="['fas', item.icon]"></i>
+            <span class="visual-mark">{{ visualIcon(item.visual) }}</span>
           </div>
           <h5 class="service-title border-bottom pb-2 mb-3">{{ item.title }}</h5>
           <p class="service-desc mb-3">{{ item.desc }}</p>
@@ -44,60 +45,71 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { visualIcon, type VisualKey } from '@/utils/visual'
 
 type TabKey = 'brand' | 'finance' | 'research'
 
 const activeTab = ref<TabKey>('brand')
 
-const tabs = [
+const tabs: Array<{
+  key: TabKey
+  label: string
+  badge: string
+  title: string
+  description: string
+  visual: VisualKey
+}> = [
   {
-    key: 'brand' as const,
+    key: 'brand',
     label: '品牌服务',
     badge: '品牌增长',
     title: '品牌服务 · 从定位到渠道的完整增长方案',
     description: '围绕安顶云雾茶区域品牌、茶企品牌与文旅品牌，提供品牌定位、视觉包装、营销推广和渠道对接服务',
+    visual: 'brand',
   },
   {
-    key: 'finance' as const,
+    key: 'finance',
     label: '茶金融',
     badge: '供应链金融',
     title: '茶金融 · 基于真实交易数据的普惠金融服务',
     description: '沉淀茶园、库存、订单和销售数据，为茶企、合作社和茶农提供授信评估、订单融资、库存融资等金融服务入口',
+    visual: 'finance',
   },
   {
-    key: 'research' as const,
+    key: 'research',
     label: '市场调研',
     badge: '数据洞察',
     title: '市场调研 · 以消费者洞察辅助茶企经营决策',
     description: '通过用户画像、渠道反馈、价格带分析和竞品研究，帮助茶企判断市场机会、优化产品结构和营销策略',
+    visual: 'research',
   },
 ]
 
 const services: Record<TabKey, Array<{
   title: string
   desc: string
-  icon: string
+  visual: VisualKey
   iconClass: string
   points: string[]
 }>> = {
   brand: [
     {
       title: '品牌定位与价值表达',
-      icon: 'fa-bullhorn',
+      visual: 'brand',
       iconClass: 'icon-red',
       desc: '基于品牌发展愿景，提炼核心卖点、品牌故事和视觉风格，形成统一的对外表达体系',
       points: ['品牌主张梳理', '品牌故事包装', '视觉符号与礼盒策略'],
     },
     {
       title: '营销活动与渠道对接',
-      icon: 'fa-store',
+      visual: 'cart',
       iconClass: 'icon-green',
       desc: '策划品牌发布会、节庆促销、直播活动和线下推介会，对接线上电商与本地文旅渠道',
       points: ['直播电商策划', '茶文旅联名活动', '企业团购渠道'],
     },
     {
       title: '内容传播与私域运营',
-      icon: 'fa-comments',
+      visual: 'tea',
       iconClass: 'icon-blue',
       desc: '围绕产地、非遗工艺、茶园风景和茶小泽IP，持续生成内容资产，提升品牌复购与用户粘性',
       points: ['短视频脚本', '公众号内容', '会员复购运营'],
@@ -106,21 +118,21 @@ const services: Record<TabKey, Array<{
   finance: [
     {
       title: '茶园贷',
-      icon: 'fa-seedling',
+      visual: 'leaf',
       iconClass: 'icon-green',
       desc: '基于茶园面积、历史产量、种植数据和经营记录，为茶农与合作社提供生产经营资金支持',
       points: ['茶园资产评估', '农事数据佐证', '生产资金周转'],
     },
     {
       title: '订单贷',
-      icon: 'fa-file-invoice-dollar',
+      visual: 'finance',
       iconClass: 'icon-orange',
       desc: '基于真实订单、预售记录和客户采购合同，为茶企提供订单履约所需的短期资金支持',
       points: ['订单真实性核验', '回款周期评估', '发货批次管理'],
     },
     {
       title: '库存与仓单融资',
-      icon: 'fa-warehouse',
+      visual: 'trace',
       iconClass: 'icon-purple',
       desc: '结合茶叶库存、等级、仓储记录和销售行情，对优质茶品进行价值评估和融资服务衔接',
       points: ['库存数字化盘点', '茶品等级评估', '仓储流转记录'],
@@ -129,21 +141,21 @@ const services: Record<TabKey, Array<{
   research: [
     {
       title: '消费者画像分析',
-      icon: 'fa-users',
+      visual: 'research',
       iconClass: 'icon-blue',
       desc: '分析购买人群、地域分布、消费频次和价格偏好，帮助茶企识别核心客群',
       points: ['用户年龄层', '区域消费偏好', '复购行为分析'],
     },
     {
       title: '产品价格带研究',
-      icon: 'fa-chart-line',
+      visual: 'brain',
       iconClass: 'icon-green',
       desc: '围绕不同等级茶品、礼盒组合和文创联名产品，分析适合的价格区间和销售策略',
       points: ['茶品等级定价', '礼盒组合策略', '促销敏感度分析'],
     },
     {
       title: '竞品与渠道调研',
-      icon: 'fa-magnifying-glass-chart',
+      visual: 'sensor',
       iconClass: 'icon-red',
       desc: '跟踪区域名茶、线上店铺、文旅消费和企业团购市场，辅助茶企制定差异化打法',
       points: ['竞品卖点拆解', '渠道结构分析', '市场机会判断'],
@@ -156,18 +168,23 @@ const currentServices = computed(() => services[activeTab.value])
 </script>
 
 <style scoped>
+.service-section {
+  position: relative;
+  z-index: 1;
+}
+
 .section-title-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--tea-border);
   padding-bottom: 10px;
 }
 
 .section-title {
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--tea-primary);
   position: relative;
   padding-left: 15px;
@@ -186,31 +203,50 @@ const currentServices = computed(() => services[activeTab.value])
 }
 
 .section-tabs .nav-link {
-  color: #666 !important;
+  color: var(--tea-text-muted) !important;
   border: none;
-  background: none;
-  font-weight: 500;
+  background: transparent;
+  font-weight: 600;
   padding: 8px 12px;
   border-radius: 999px;
 }
 
-.section-tabs .nav-link.active {
+.section-tabs .nav-link.active,
+.section-tabs .nav-link:hover {
   color: var(--tea-primary) !important;
-  background: rgba(0, 104, 59, 0.1);
+  background: var(--tea-primary-soft);
   font-weight: 800;
 }
 
 .service-hero {
-  background: linear-gradient(135deg, rgba(0, 104, 59, 0.1), rgba(255, 255, 255, 0.96));
-  border: 1px solid rgba(0, 104, 59, 0.1);
-  border-radius: 18px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  background: linear-gradient(135deg, var(--tea-primary-soft), var(--tea-surface-soft));
+  border: 1px solid var(--tea-border);
+  border-radius: 22px;
   padding: 26px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--tea-shadow);
+}
+
+.service-hero-icon {
+  width: 68px;
+  height: 68px;
+  flex: 0 0 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22px;
+  color: var(--tea-primary);
+  background: var(--tea-surface);
+  border: 1px solid var(--tea-border);
+  font-size: 1.65rem;
+  font-weight: 900;
 }
 
 .service-badge {
   display: inline-block;
-  background: rgba(0, 104, 59, 0.12);
+  background: var(--tea-primary-soft);
   color: var(--tea-primary);
   border-radius: 999px;
   padding: 6px 14px;
@@ -219,18 +255,17 @@ const currentServices = computed(() => services[activeTab.value])
 }
 
 .service-card {
-  background: white;
-  border-radius: 14px;
+  background: var(--tea-surface-soft);
+  border-radius: 18px;
   padding: 22px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  box-shadow: var(--tea-shadow);
   transition: all 0.3s;
   height: 100%;
-  border: 1px solid #eee;
+  border: 1px solid var(--tea-border);
 }
 
 .service-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
   border-color: var(--tea-primary);
 }
 
@@ -245,21 +280,30 @@ const currentServices = computed(() => services[activeTab.value])
   font-size: 1.35rem;
 }
 
-.icon-green { background: #e8f5e9; color: #2e7d32; }
-.icon-blue { background: #e3f2fd; color: #1565c0; }
-.icon-red { background: #ffebee; color: #c62828; }
-.icon-orange { background: #fff8e1; color: #f57f17; }
-.icon-purple { background: #f3e5f5; color: #6a1b9a; }
+.visual-mark {
+  line-height: 1;
+  font-weight: 900;
+}
+
+.icon-green,
+.icon-blue,
+.icon-red,
+.icon-orange,
+.icon-purple {
+  color: var(--tea-primary);
+  background: var(--tea-primary-soft);
+}
 
 .service-title {
   font-size: 1.1rem;
   font-weight: 800;
-  color: #333;
+  color: var(--tea-text);
+  border-color: var(--tea-border) !important;
 }
 
 .service-desc {
   font-size: 0.9rem;
-  color: #777;
+  color: var(--tea-text-muted);
   line-height: 1.75;
 }
 
@@ -272,7 +316,7 @@ const currentServices = computed(() => services[activeTab.value])
 .service-points li {
   position: relative;
   padding-left: 18px;
-  color: #666;
+  color: var(--tea-text-muted);
   font-size: 0.88rem;
   margin-bottom: 7px;
 }
@@ -286,5 +330,16 @@ const currentServices = computed(() => services[activeTab.value])
   height: 7px;
   border-radius: 50%;
   background: var(--tea-primary);
+}
+
+@media (max-width: 768px) {
+  .section-title-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .service-hero {
+    align-items: flex-start;
+  }
 }
 </style>

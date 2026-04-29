@@ -1,6 +1,7 @@
 <template>
   <main class="shop-page">
     <ShopNavbar />
+    <CartModal />
     <div class="page-offset">
       <slot />
     </div>
@@ -11,6 +12,7 @@
 <script setup lang="ts">
 import ShopNavbar from '@/components/shop/LosShopNavbar.vue'
 import AppFooter from '@/components/shop/LosAppFooter.vue'
+import CartModal from '@/components/shop/LosCartModal.vue'
 </script>
 
 <style scoped>

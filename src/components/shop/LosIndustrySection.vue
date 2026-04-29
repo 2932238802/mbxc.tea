@@ -7,8 +7,6 @@
       </div>
       <ul class="nav section-tabs">
         <li class="nav-item"><a class="nav-link active" href="#">数字茶园</a></li>
-        <li class="nav-item"><a class="nav-link" href="#future">未来茶场</a></li>
-        <li class="nav-item"><router-link class="nav-link" to="/dashboard">茶产业大脑</router-link></li>
       </ul>
     </div>
 
@@ -54,7 +52,6 @@
     <div class="tea-map-panel mb-4">
       <div class="tea-map-header">
         <div>
-          <span class="industry-badge">Tea Industry Map</span>
           <h3 class="fw-bold my-2">全国茶产业地图</h3>
           <p class="text-muted mb-0">展示全国重点茶类产区、区域公共品牌与价格行情分布，点击标记可查看产区信息</p>
         </div>

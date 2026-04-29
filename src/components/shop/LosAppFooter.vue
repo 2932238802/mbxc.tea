@@ -21,7 +21,7 @@
           <ul>
             <li><a href="https://www.ctma.com.cn/" target="_blank" rel="noopener noreferrer">中国茶叶流通协会</a></li>
             <li><a href="https://www.moa.gov.cn/" target="_blank" rel="noopener noreferrer">农业农村部</a></li>
-            <li><a href="https://www.fuyang.gov.cn/art/2023/4/10/art_1385998_59320996.html" target="_blank" rel="noopener noreferrer">富阳安顶云雾茶</a></li>
+            <li><a href="https://baike.baidu.com/item/%E5%AE%89%E9%A1%B6%E4%BA%91%E9%9B%BE%E8%8C%B6/12767002" target="_blank" rel="noopener noreferrer">富阳安顶云雾茶</a></li>
             <li><a href="https://365tea.net/" target="_blank" rel="noopener noreferrer">茶小智产业大脑</a></li>
           </ul>
         </div>

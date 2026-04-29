@@ -5,7 +5,6 @@
         <h2 class="section-title">茶科技</h2>
         <p class="section-subtitle mb-0">用硬件、算法和虚拟体验，把茶叶从产地到消费者的链路变得可信、可视、可互动</p>
       </div>
-      <a href="#tech-roadmap" class="text-muted text-decoration-none">技术路线 <i class="fas fa-angle-right"></i></a>
     </div>
 
     <div class="tech-banner mb-4">

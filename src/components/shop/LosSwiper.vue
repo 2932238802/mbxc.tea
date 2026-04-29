@@ -11,11 +11,9 @@
         v-for="slide in slides"
         :key="slide.title"
         class="swiper-slide hero-slide"
-        :style="{ backgroundImage: `url(${slide.image})` }"
+        :style="{ backgroundImage: `url(${slide.image})`, backgroundPosition: slide.position || 'center' }"
       >
         <div class="hero-overlay"></div>
-        <div class="hero-decor hero-decor-left"></div>
-        <div class="hero-decor hero-decor-right"></div>
 
         <div class="hero-content">
           <div class="hero-kicker">
@@ -62,6 +60,7 @@ const slides = [
   },
   {
     image: assetUrl('数字2.jpg'),
+    position: 'center 32%',
     kicker: '数字茶园示范基地',
     title: '天空地一体化监测<br>驱动智慧茶园管理',
     subtitle: '物联网感知 · AI 农事建议 · 茶园长势监测',
@@ -125,7 +124,7 @@ onUnmounted(() => {
 .los-swiper {
   height: 560px;
   overflow: hidden;
-  border-bottom: 1px solid rgba(0, 104, 59, 0.08);
+  border-bottom: none;
   background: #0b2418;
 }
 
@@ -157,27 +156,6 @@ onUnmounted(() => {
     radial-gradient(circle at 50% 36%, rgba(255, 255, 255, 0.18), transparent 24%),
     linear-gradient(90deg, rgba(2, 36, 17, 0.34), rgba(0, 64, 32, 0.12) 45%, rgba(2, 36, 17, 0.32)),
     linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06));
-}
-
-.hero-decor {
-  position: absolute;
-  width: 320px;
-  height: 320px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.04);
-  filter: blur(0.2px);
-  pointer-events: none;
-}
-
-.hero-decor-left {
-  left: -120px;
-  top: 70px;
-}
-
-.hero-decor-right {
-  right: -140px;
-  bottom: -95px;
 }
 
 .hero-content {

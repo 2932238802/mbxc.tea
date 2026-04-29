@@ -42,7 +42,6 @@
         <div class="row g-4">
           <div class="col-md-4" v-for="item in modules" :key="item.path">
             <router-link :to="item.path" class="module-card">
-              <div class="module-icon"><i :class="['fas', item.icon]"></i></div>
               <h5>{{ item.title }}</h5>
               <p>{{ item.desc }}</p>
             </router-link>
@@ -112,7 +111,7 @@ const modules = [
   background: #fff;
   border: 1px solid #eee;
   border-radius: 16px;
-  padding: 24px;
+  padding: 34px 28px;
   color: inherit;
   text-decoration: none;
   box-shadow: 0 4px 16px rgba(0,0,0,0.04);
@@ -123,25 +122,16 @@ const modules = [
   border-color: var(--tea-primary);
   box-shadow: 0 12px 26px rgba(0,0,0,0.08);
 }
-.module-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: rgba(0,104,59,.1);
-  color: var(--tea-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  margin-bottom: 16px;
-}
 .module-card h5 {
-  font-weight: 800;
+  font-size: 1.55rem;
+  font-weight: 900;
   color: #1b4d24;
+  margin-bottom: 14px;
 }
 .module-card p {
-  color: #777;
+  color: #555;
+  font-size: 1.08rem;
   margin-bottom: 0;
-  line-height: 1.7;
+  line-height: 1.9;
 }
 </style>

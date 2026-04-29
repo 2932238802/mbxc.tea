@@ -59,6 +59,7 @@
         </template>
 
         <a
+          v-if="authStore.isAdmin"
           href="https://github.com/2932238802/LosTeaWeb"
           target="_blank"
           rel="noopener noreferrer"

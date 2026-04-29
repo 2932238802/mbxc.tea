@@ -122,9 +122,6 @@
                     </button>
                   </div>
 
-                  <div class="col-12">
-                    <div class="text-muted small">提交订单后，平台客服会与您确认发货批次与支付方式</div>
-                  </div>
                 </div>
               </div>
             </div>

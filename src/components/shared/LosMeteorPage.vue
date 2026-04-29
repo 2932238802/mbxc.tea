@@ -84,13 +84,13 @@ defineProps<{
   background-size: cover;
   background-position: center top;
   background-repeat: repeat-y;
-  opacity: 0.05;
+  opacity: 0.15;
   mask-image: radial-gradient(ellipse at center, #000 40%, transparent 85%);
   -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 85%);
 }
 
 :root[data-theme="dark"] .meteor-bg-image {
-  opacity: 0.04;
+  opacity: 0.15;
   filter: brightness(0.8);
 }
 

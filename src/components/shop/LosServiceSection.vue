@@ -23,7 +23,6 @@
       <div>
         <span class="service-badge">{{ currentTab.badge }}</span>
         <h3>{{ currentTab.title }}</h3>
-        <p>{{ currentTab.description }}</p>
       </div>
       <div class="intro-count">
         <strong>{{ currentServices.length }}</strong>
@@ -43,7 +42,6 @@
         <div class="card-content">
           <span class="card-tag">{{ item.tag }}</span>
           <h4>{{ item.title }}</h4>
-          <p>{{ item.desc }}</p>
           <ul>
             <li v-for="point in item.points" :key="point">{{ point }}</li>
           </ul>
@@ -144,6 +142,7 @@ const baseCards: Record<TabKey, ServiceCard[]> = {
       tag: '洞察',
       image: '游客服务中心.jpg',
       tone: 'green',
+      featured: true,
       desc: '采集茶企相关信息，从宏观层面给予茶产业、行业、竞品、受众宏观洞察。',
       points: ['消费人群洞察', '竞品卖点拆解', '价格带研究'],
     },
@@ -168,7 +167,6 @@ const baseCards: Record<TabKey, ServiceCard[]> = {
       tag: '视觉',
       image: '总览.jpg',
       tone: 'white',
-      featured: true,
       desc: '基于品牌定位、品牌命名、品牌口号，对茶企品牌进行品牌 logo、包装、宣传物料等内容设计。',
       points: ['Logo 设计', '包装设计', '视觉识别系统'],
     },

@@ -7,17 +7,16 @@ export interface CartItem {
   qty: number
 }
 
-
 const KEY = 'tea_platform_cart_v1'
-
 
 function load(): CartItem[] {
   try {
     const raw = localStorage.getItem(KEY)
     return raw ? JSON.parse(raw) : []
-  } catch { return [] }
+  } catch {
+    return []
+  }
 }
-
 
 function save(items: CartItem[]) {
   localStorage.setItem(KEY, JSON.stringify(items))
@@ -26,8 +25,13 @@ function save(items: CartItem[]) {
 export const useCartStore = defineStore('cart', () => {
   const items = ref<CartItem[]>(load())
 
-  const totalCount = computed(() => items.value.reduce((s, i) => s + i.qty, 0))
-  const totalPrice = computed(() => items.value.reduce((s, i) => s + i.price * i.qty, 0))
+  const totalCount = computed(() =>
+    items.value.reduce((s, i) => s + i.qty, 0),
+  )
+
+  const totalPrice = computed(() =>
+    items.value.reduce((s, i) => s + i.price * i.qty, 0),
+  )
 
   function add(name: string, price: number, qty = 1) {
     const found = items.value.find(it => it.name === name)
@@ -39,7 +43,6 @@ export const useCartStore = defineStore('cart', () => {
     save(items.value)
   }
 
-  
   function updateQty(idx: number, qty: number) {
     if (idx >= 0 && idx < items.value.length) {
       items.value[idx].qty = Math.min(99, Math.max(1, Math.round(qty)))
@@ -57,5 +60,18 @@ export const useCartStore = defineStore('cart', () => {
     save(items.value)
   }
 
-  return { items, totalCount, totalPrice, add, updateQty, remove, clear }
+  function snapshot(): CartItem[] {
+    return items.value.map(item => ({ ...item }))
+  }
+
+  return {
+    items,
+    totalCount,
+    totalPrice,
+    add,
+    updateQty,
+    remove,
+    clear,
+    snapshot,
+  }
 })

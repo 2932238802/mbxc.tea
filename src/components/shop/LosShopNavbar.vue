@@ -4,6 +4,10 @@
       <router-link to="/" class="navbar-brand">
         <img :src="assetUrl('logo.jpg')" alt="Logo" class="brand-logo-img">
         茗不虚传
+        <span v-if="authStore.isLoggedIn" class="brand-user" :title="authStore.user?.email || authStore.displayName">
+          <i class="fas fa-user-circle"></i>
+          <span class="brand-user-text">{{ authStore.user?.email || authStore.displayName }}</span>
+        </span>
       </router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -117,6 +121,36 @@ function handleLogout() {
   height: 40px;
   object-fit: contain;
   border-radius: 10px;
+}
+
+.brand-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--tea-primary-soft);
+  color: var(--tea-primary);
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  max-width: 220px;
+  overflow: hidden;
+}
+
+.brand-user .brand-user-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+@media (max-width: 1200px) {
+  .brand-user {
+    display: none;
+  }
 }
 
 .nav-link {

@@ -19,44 +19,40 @@
         <div class="row g-4">
           <div class="col-lg-7">
             <div class="card border-0 shadow-sm p-4 h-100">
-              <h4 class="fw-bold mb-2"><i class="fas fa-seedling text-success me-2"></i> 茶叶预定</h4>
+              <h4 class="fw-bold mb-2">茶叶预定</h4>
               <p class="text-muted mb-4">
                 安顶云雾茶<br>一脉千年贡茶底蕴，始于三国东吴皇宴臻饮，明洪武年间钦定贡茶，盛誉延绵至清扎根富阳安顶山350亩核心产区，坐拥"天空之境"独特高山云雾小气候，凝山水灵气成茶，手工炒制技艺为杭州市级非遗
               </p>
               <div class="row g-3">
                 <div class="col-md-6" v-for="tea in preorderTeas" :key="tea.grade">
                   <ProductCard :img-src="tea.img" :title="tea.grade" :price="tea.price" :badge="tea.badge"
-                    action-label="预定" @action="openPreorder(tea.grade)" />
+                    action-label="预定" @action="openAddToCart(tea.grade, tea.price, '茶叶')" />
                 </div>
               </div>
             </div>
           </div>
           <div class="col-lg-5">
             <div class="card border-0 shadow-sm p-4">
-              <h5 class="fw-bold mb-3"><i class="fas fa-clipboard-list text-success me-2"></i> 提交预定</h5>
-              <form @submit.prevent="submitPreorder" class="row g-3">
-                <div class="col-12">
-                  <label class="form-label mb-1">预定等级</label>
-                  <select class="form-select" v-model="preorderForm.grade" required>
-                    <option value="" disabled>请选择等级</option>
-                    <option value="手工·匠心">手工·匠心</option>
-                    <option value="特选级">特选级</option>
-                    <option value="精选级">精选级</option>
-                    <option value="优选级">优选级</option>
-                  </select>
+              <h5 class="fw-bold mb-3">购物车速览</h5>
+              <p class="text-muted mb-3">
+                所有商品都会先加入购物车，完成信息填写后再统一在购物车里提交订单
+              </p>
+              <div class="cart-summary">
+                <div class="cart-summary-row">
+                  <span>商品数量</span>
+                  <strong>{{ cart.totalCount }}</strong>
                 </div>
-                <div class="col-12">
-                  <label class="form-label mb-1">数量（盒）</label>
-                  <input type="number" min="1" max="99" class="form-control" v-model="preorderForm.qty" required>
+                <div class="cart-summary-row">
+                  <span>合计金额</span>
+                  <strong class="text-success">¥{{ cart.totalPrice }}</strong>
                 </div>
-                <div class="col-12 d-grid">
-                  <button type="submit" class="btn btn-success rounded-pill"><i
-                      class="fas fa-lock me-2"></i>锁定预定</button>
-                </div>
-                <div class="col-12" v-if="preorderResult">
-                  <div class="text-success fw-semibold">{{ preorderResult }}</div>
-                </div>
-              </form>
+              </div>
+              <button class="btn btn-success rounded-pill w-100 mt-3" @click="openCart">
+                查看购物车
+              </button>
+              <div class="form-text mt-2">
+                购物车里点击「提交订单」才会发送给后端
+              </div>
             </div>
           </div>
         </div>
@@ -67,19 +63,47 @@
         <div class="row g-4">
           <div class="col-lg-3 col-md-6" v-for="item in merchItems" :key="item.name">
             <ProductCard :img-src="item.img" :title="item.name" :price="item.price" badge="文创" action-label="购买"
-              @action="openMerchBuy(item.name, item.price)" />
+              @action="openAddToCart(item.name, item.price, '文创')" />
           </div>
         </div>
       </div>
     </div>
 
+    <!-- 未登录提示弹窗 -->
+    <Teleport to="body">
+      <div v-if="loginModal.show" class="modal fade show d-block los-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content los-modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title fw-bold">登录后再继续</h5>
+              <button type="button" class="btn-close" @click="loginModal.show = false"></button>
+            </div>
+            <div class="modal-body">
+              <div class="text-muted">
+                {{ loginModal.message || '请先登录后再操作购物车与下单' }}
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-outline-secondary rounded-pill px-4" @click="loginModal.show = false">
+                稍后再说
+              </button>
+              <button class="btn btn-success rounded-pill px-4" @click="goLogin">
+                去登录
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-backdrop fade show los-modal-backdrop" @click="loginModal.show = false"></div>
+      </div>
+    </Teleport>
+
     <!-- All Products Modal -->
     <Teleport to="body">
-      <div v-if="showAllModal" class="modal fade show d-block" tabindex="-1">
+      <div v-if="showAllModal" class="modal fade show d-block los-modal" tabindex="-1">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content">
+          <div class="modal-content los-modal-content">
             <div class="modal-header">
-              <h5 class="modal-title fw-bold"><i class="fas fa-bag-shopping text-success me-2"></i>全部茶品</h5>
+              <h5 class="modal-title fw-bold">全部茶品</h5>
               <button type="button" class="btn-close" @click="showAllModal = false"></button>
             </div>
             <div class="modal-body">
@@ -88,7 +112,7 @@
                 <div class="row g-3">
                   <div class="col-md-6" v-for="tea in preorderTeas" :key="tea.grade">
                     <ProductCard :img-src="tea.img" :title="tea.grade" :price="tea.price" :badge="tea.badge"
-                      action-label="预定" @action="openPreorder(tea.grade)" />
+                      action-label="预定" @action="openAddToCart(tea.grade, tea.price, '茶叶')" />
                   </div>
                 </div>
               </div>
@@ -97,7 +121,7 @@
                 <div class="row g-3">
                   <div class="col-lg-3 col-md-6" v-for="item in merchItems" :key="item.name">
                     <ProductCard :img-src="item.img" :title="item.name" :price="item.price" badge="文创" action-label="购买"
-                      @action="openMerchBuy(item.name, item.price)" />
+                      @action="openAddToCart(item.name, item.price, '文创')" />
                   </div>
                 </div>
               </div>
@@ -108,111 +132,80 @@
             </div>
           </div>
         </div>
-        <div class="modal-backdrop fade show" @click="showAllModal = false"></div>
+        <div class="modal-backdrop fade show los-modal-backdrop" @click="showAllModal = false"></div>
       </div>
     </Teleport>
 
-    <!-- Preorder Modal -->
+    <!-- Add To Cart Modal（购买入口，只负责加入购物车）-->
     <Teleport to="body">
-      <div v-if="preorderModal.show" class="modal fade show d-block" tabindex="-1">
+      <div v-if="addModal.show" class="modal fade show d-block los-modal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content">
+          <div class="modal-content los-modal-content">
             <div class="modal-header">
               <div>
-                <h5 class="modal-title fw-bold mb-0">{{ preorderModal.grade }} · 预定</h5>
-                <div class="text-muted small mt-1">{{ preorderModal.summary }}</div>
-              </div>
-              <button type="button" class="btn-close" @click="preorderModal.show = false"></button>
-            </div>
-            <div class="modal-body">
-              <div class="mb-3">
-                <div class="fw-bold mb-2">产品规格</div>
-                <div class="spec-grid">
-                  <button v-for="spec in preorderModal.specs" :key="spec.key" class="spec-option"
-                    :class="{ 'is-selected': preorderModal.selKey === spec.key }" @click="selectSpec(spec.key)">
-                    <div class="spec-option-title">{{ spec.label }}</div>
-                    <div class="spec-option-meta">¥{{ spec.price }}</div>
-                  </button>
+                <h5 class="modal-title fw-bold mb-0">加入购物车 · {{ addModal.name }}</h5>
+                <div class="text-muted small mt-1">
+                  单价¥{{ addModal.price }} · 数量{{ addModal.qty }} · 合计¥{{ addModal.price * addModal.qty }}
                 </div>
               </div>
-              <div>
-                <div class="fw-bold mb-2">数量</div>
-                <div class="input-group qty-stepper" style="max-width:260px">
-                  <button class="btn btn-outline-secondary"
-                    @click="preorderModal.qty = clampQty(preorderModal.qty - 1)">-</button>
-                  <input class="form-control text-center fw-bold" v-model.number="preorderModal.qty"
-                    @blur="preorderModal.qty = clampQty(preorderModal.qty)">
-                  <button class="btn btn-outline-secondary"
-                    @click="preorderModal.qty = clampQty(preorderModal.qty + 1)">+</button>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-outline-secondary rounded-pill px-4"
-                @click="preorderModal.show = false">取消</button>
-              <button class="btn btn-success rounded-pill px-4" @click="confirmPreorder"><i
-                  class="fas fa-check me-2"></i>确认预定</button>
-            </div>
-          </div>
-        </div>
-        <div class="modal-backdrop fade show" @click="preorderModal.show = false"></div>
-      </div>
-    </Teleport>
-
-    <!-- Merch Buy Modal -->
-    <Teleport to="body">
-      <div v-if="merchModal.show" class="modal fade show d-block" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div>
-                <h5 class="modal-title fw-bold mb-0">购买 · {{ merchModal.name }}</h5>
-                <div class="text-muted small mt-1">单价¥{{ merchModal.price }} · 数量{{ merchModal.qty }} · 合计¥{{
-                  merchModal.price * merchModal.qty }}</div>
-              </div>
-              <button type="button" class="btn-close" @click="merchModal.show = false"></button>
+              <button type="button" class="btn-close" @click="addModal.show = false"></button>
             </div>
             <div class="modal-body">
               <div class="fw-bold mb-2">数量</div>
               <div class="input-group qty-stepper" style="max-width:260px">
-                <button class="btn btn-outline-secondary"
-                  @click="merchModal.qty = clampQty(merchModal.qty - 1)">-</button>
-                <input class="form-control text-center fw-bold" v-model.number="merchModal.qty"
-                  @blur="merchModal.qty = clampQty(merchModal.qty)">
-                <button class="btn btn-outline-secondary"
-                  @click="merchModal.qty = clampQty(merchModal.qty + 1)">+</button>
+                <button class="btn btn-outline-secondary" @click="addModal.qty = clampQty(addModal.qty - 1)">-</button>
+                <input class="form-control text-center fw-bold" v-model.number="addModal.qty"
+                  @blur="addModal.qty = clampQty(addModal.qty)">
+                <button class="btn btn-outline-secondary" @click="addModal.qty = clampQty(addModal.qty + 1)">+</button>
+              </div>
+
+              <div class="tip-box mt-3">
+                本平台不会在此直接扣款，提交购物车订单后平台客服将与您确认发货批次与支付方式
               </div>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-outline-secondary rounded-pill px-4" @click="merchModal.show = false">取消</button>
-              <button class="btn btn-outline-success rounded-pill px-4" @click="addToCart"><i
-                  class="fas fa-cart-plus me-2"></i>加入购物车</button>
-              <button class="btn btn-success rounded-pill px-4" @click="buyNow"><i
-                  class="fas fa-bolt me-2"></i>立即购买</button>
+              <button class="btn btn-outline-secondary rounded-pill px-4" @click="addModal.show = false">取消</button>
+              <button class="btn btn-success rounded-pill px-4" @click="confirmAddToCart">
+                加入购物车
+              </button>
             </div>
           </div>
         </div>
-        <div class="modal-backdrop fade show" @click="merchModal.show = false"></div>
+        <div class="modal-backdrop fade show los-modal-backdrop" @click="addModal.show = false"></div>
       </div>
     </Teleport>
 
-    <!-- Toast -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:2100">
-      <div ref="toastRef" class="toast align-items-center text-bg-success border-0" role="alert">
-        <div class="d-flex">
-          <div class="toast-body">{{ toastMsg }}</div>
-          <button class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    <!-- 加入成功提示弹窗 -->
+    <Teleport to="body">
+      <div v-if="successModal.show" class="modal fade show d-block los-modal" tabindex="-1">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+          <div class="modal-content success-modal los-modal-content">
+            <div class="modal-body text-center py-4">
+              <div class="success-icon">✓</div>
+              <h5 class="fw-bold mt-3 mb-1">已加入购物车</h5>
+              <div class="text-muted small">{{ successModal.message }}</div>
+            </div>
+            <div class="modal-footer justify-content-center border-0 pt-0">
+              <button class="btn btn-outline-secondary rounded-pill px-4" @click="successModal.show = false">
+                继续选购
+              </button>
+              <button class="btn btn-success rounded-pill px-4" @click="openCartFromSuccess">
+                去购物车
+              </button>
+            </div>
+          </div>
         </div>
+        <div class="modal-backdrop fade show los-modal-backdrop" @click="successModal.show = false"></div>
       </div>
-    </div>
+    </Teleport>
 
     <!-- Cart Modal -->
     <Teleport to="body">
-      <div v-if="cartModal.show" class="modal fade show d-block" tabindex="-1">
+      <div v-if="cartModal.show" class="modal fade show d-block los-modal" tabindex="-1">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content">
+          <div class="modal-content los-modal-content">
             <div class="modal-header">
-              <h5 class="modal-title fw-bold"><i class="fas fa-shopping-cart text-success me-2"></i>购物车</h5>
+              <h5 class="modal-title fw-bold">购物车</h5>
               <button type="button" class="btn-close" @click="cartModal.show = false"></button>
             </div>
             <div class="modal-body">
@@ -220,14 +213,18 @@
                 <div class="col-lg-7">
                   <div class="d-flex justify-content-between align-items-center mb-2">
                     <div class="fw-bold">已选商品</div>
-                    <button class="btn btn-sm btn-outline-danger rounded-pill" @click="cart.clear()">清空</button>
+                    <button class="btn btn-sm btn-outline-danger rounded-pill"
+                      :disabled="!cart.items.length"
+                      @click="cart.clear()">清空</button>
                   </div>
-                  <div v-if="!cart.items.length" class="text-muted">购物车还是空的～去挑点文创周边吧！</div>
-                  <div v-for="(item, i) in cart.items" :key="i" class="border rounded p-3 mb-2">
+                  <div v-if="!cart.items.length" class="empty-cart">
+                    购物车还是空的，去挑点茶品或文创周边吧
+                  </div>
+                  <div v-for="(item, i) in cart.items" :key="i" class="cart-item">
                     <div class="d-flex justify-content-between align-items-start gap-3">
                       <div>
                         <div class="fw-bold">{{ item.name }}</div>
-                        <div class="text-muted small">单价：¥{{ item.price }}</div>
+                        <div class="text-muted small">单价¥{{ item.price }}</div>
                       </div>
                       <button class="btn btn-sm btn-outline-danger rounded-pill" @click="cart.remove(i)">删除</button>
                     </div>
@@ -238,28 +235,51 @@
                           @blur="cart.updateQty(i, Number(($event.target as HTMLInputElement).value))">
                         <button class="btn btn-outline-secondary" @click="cart.updateQty(i, item.qty + 1)">+</button>
                       </div>
-                      <div class="fw-bold">小计：<span class="text-success">¥{{ item.price * item.qty }}</span></div>
+                      <div class="fw-bold">小计<span class="text-success ms-2">¥{{ item.price * item.qty }}</span></div>
                     </div>
                   </div>
                   <div class="d-flex justify-content-end mt-3">
-                    <div class="fw-bold">合计：<span class="text-success">¥{{ cart.totalPrice }}</span></div>
+                    <div class="fw-bold">合计<span class="text-success ms-2">¥{{ cart.totalPrice }}</span></div>
                   </div>
                 </div>
                 <div class="col-lg-5">
                   <div class="fw-bold mb-2">结算信息</div>
                   <div class="row g-3">
-                    <div class="col-12"><label class="form-label mb-1">收货人</label><input class="form-control"
-                        v-model="checkout.name" placeholder="请输入收货人姓名"></div>
-                    <div class="col-12"><label class="form-label mb-1">电话</label><input class="form-control"
-                        v-model="checkout.phone" placeholder="请输入手机号"></div>
-                    <div class="col-12"><label class="form-label mb-1">地址</label><input class="form-control"
-                        v-model="checkout.addr" placeholder="请输入详细地址"></div>
-                    <div class="col-12"><label class="form-label mb-1">备注</label><textarea class="form-control"
-                        v-model="checkout.note" rows="3" placeholder="可填写发货批次偏好、是否礼盒等"></textarea></div>
-                    <div class="col-12 d-grid"><button class="btn btn-success rounded-pill" @click="submitOrder"><i
-                          class="fas fa-check me-2"></i>提交订单</button></div>
                     <div class="col-12">
-                      <div class="text-muted small">提交后平台客服会与您确认【发货批次】与【支付方式】</div>
+                      <label class="form-label mb-1">收货人</label>
+                      <input class="form-control" v-model="checkout.name" placeholder="请输入收货人姓名">
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label mb-1">电话</label>
+                      <input class="form-control" v-model="checkout.phone" placeholder="请输入手机号">
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label mb-1">地址</label>
+                      <input class="form-control" v-model="checkout.addr" placeholder="请输入详细地址">
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label mb-1">备注</label>
+                      <textarea class="form-control" v-model="checkout.note" rows="3"
+                        placeholder="可填写发货批次偏好、是否礼盒等"></textarea>
+                    </div>
+
+                    <div v-if="submitError" class="col-12">
+                      <div class="alert alert-danger py-2 mb-0">{{ submitError }}</div>
+                    </div>
+
+                    <div class="col-12 d-grid">
+                      <button class="btn btn-success rounded-pill"
+                        :disabled="submitting || !cart.items.length"
+                        @click="submitOrder">
+                        <span v-if="submitting" class="spinner-border spinner-border-sm me-2"></span>
+                        {{ submitting ? '提交中…' : '提交订单' }}
+                      </button>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="text-muted small">
+                        提交订单后，平台客服会与您确认发货批次与支付方式
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -267,24 +287,48 @@
             </div>
           </div>
         </div>
-        <div class="modal-backdrop fade show" @click="cartModal.show = false"></div>
+        <div class="modal-backdrop fade show los-modal-backdrop" @click="cartModal.show = false"></div>
+      </div>
+    </Teleport>
+
+    <!-- 订单提交成功弹窗 -->
+    <Teleport to="body">
+      <div v-if="orderSuccessModal.show" class="modal fade show d-block los-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content success-modal los-modal-content">
+            <div class="modal-body text-center py-4">
+              <div class="success-icon">✓</div>
+              <h5 class="fw-bold mt-3 mb-1">订单已提交</h5>
+              <div class="text-muted small">订单号 #{{ orderSuccessModal.orderId }}，合计 ¥{{ orderSuccessModal.total }}</div>
+              <div class="text-muted small mt-2">平台客服将尽快与您联系确认</div>
+            </div>
+            <div class="modal-footer justify-content-center border-0 pt-0">
+              <button class="btn btn-success rounded-pill px-4" @click="orderSuccessModal.show = false">
+                好的
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-backdrop fade show los-modal-backdrop" @click="orderSuccessModal.show = false"></div>
       </div>
     </Teleport>
   </div>
 </template>
 
-<!---------------------------------------------------------->
-
-
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
+import { ref, reactive, onMounted, onUnmounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
-import { TEA_PRODUCTS, normalizeTeaSpec, calcTeaPrice, clampQty } from '@/utils/products'
+import { useAuthStore } from '@/stores/auth'
+import { clampQty } from '@/utils/products'
+import { createOrder } from '@/utils/orders'
 import ProductCard from './LosProductCard.vue'
 import { assetUrl } from '@/utils/asset'
-import { Toast } from 'bootstrap'
 
 const cart = useCartStore()
+const authStore = useAuthStore()
+const router = useRouter()
+const route = useRoute()
 
 const preorderTeas = [
   { grade: '手工·匠心', price: 3000, img: assetUrl('手工·匠心.jpg'), badge: '限量预定' },
@@ -302,106 +346,151 @@ const merchItems = [
 
 const showAllModal = ref(false)
 
-const preorderForm = reactive({ grade: '', qty: 1 })
-const preorderResult = ref('')
-
-function submitPreorder() {
-  if (!preorderForm.grade) return
-  preorderResult.value = `✅ 预定已提交：${preorderForm.grade} · ${preorderForm.qty}盒请联系客服确认【发货批次】与【支付方式】`
-}
-
-const preorderModal = reactive({
-  show: false, grade: '', selKey: '', qty: 1, summary: '',
-  specs: [] as Array<{ key: string; grams: number; label: string; price: number }>,
+const addModal = reactive({
+  show: false,
+  name: '',
+  price: 0,
+  qty: 1,
+  kind: '文创',
 })
 
-function openPreorder(grade: string) {
-  const product = TEA_PRODUCTS[grade]
-  if (!product) return
-  const specs = product.specs.map(normalizeTeaSpec).filter(Boolean)
-  if (!specs.length) return
-  preorderModal.grade = grade
-  preorderModal.show = true
-  preorderModal.qty = 1
-  preorderModal.specs = specs.map(s => ({ ...s!, price: calcTeaPrice(grade, s!) }))
-  preorderModal.selKey = String(specs[0]?.key || '')
-  updatePreorderSummary()
+const successModal = reactive({
+  show: false,
+  message: '',
+})
+
+const orderSuccessModal = reactive({
+  show: false,
+  orderId: 0,
+  total: 0,
+})
+
+const loginModal = reactive({
+  show: false,
+  message: '',
+})
+
+function requireLogin(message: string): boolean {
+  if (authStore.isLoggedIn) return true
+  loginModal.message = message
+  loginModal.show = true
+  return false
 }
 
-function selectSpec(key: string) {
-  preorderModal.selKey = key
-  updatePreorderSummary()
+function goLogin() {
+  loginModal.show = false
+  const redirect = route.fullPath || '/market'
+  router.push({ path: '/login', query: { redirect } })
 }
 
-function updatePreorderSummary() {
-  const spec = preorderModal.specs.find(s => s.key === preorderModal.selKey)
-  if (spec) {
-    const total = spec.price * preorderModal.qty
-    preorderModal.summary = `已选：${preorderModal.grade} · ${spec.label} · 单价¥${spec.price} · 数量${preorderModal.qty} · 合计¥${total}`
-  }
+function openAddToCart(name: string, price: number, kind: string) {
+  if (!requireLogin('登录后即可把商品加入购物车并完成下单')) return
+  addModal.name = name
+  addModal.price = price
+  addModal.qty = 1
+  addModal.kind = kind
+  addModal.show = true
 }
 
-function confirmPreorder() {
-  preorderForm.grade = preorderModal.grade
-  preorderForm.qty = preorderModal.qty
-  preorderModal.show = false
+function openCart() {
+  if (!requireLogin('登录后即可查看和结算购物车')) return
+  cartModal.show = true
 }
 
-// Merch Modal
-const merchModal = reactive({ show: false, name: '', price: 0, qty: 1 })
-const toastRef = ref<HTMLElement>()
-const toastMsg = ref('')
-
-function openMerchBuy(name: string, price: number) {
-  merchModal.name = name; merchModal.price = price; merchModal.qty = 1; merchModal.show = true
+function confirmAddToCart() {
+  const qty = clampQty(addModal.qty)
+  cart.add(addModal.name, addModal.price, qty)
+  successModal.message = `${addModal.name} × ${qty}`
+  successModal.show = true
+  addModal.show = false
 }
 
-function showToast(msg: string) {
-  toastMsg.value = msg
-  if (toastRef.value) Toast.getOrCreateInstance(toastRef.value, { delay: 2400 }).show()
-}
-
-function addToCart() {
-  cart.add(merchModal.name, merchModal.price, merchModal.qty)
-  showToast(`已加入购物车：${merchModal.name} × ${merchModal.qty}`)
-  merchModal.show = false
-}
-
-function buyNow() {
-  cart.add(merchModal.name, merchModal.price, merchModal.qty)
-  merchModal.show = false
+function openCartFromSuccess() {
+  successModal.show = false
   cartModal.show = true
 }
 
 const cartModal = reactive({ show: false })
 const checkout = reactive({ name: '', phone: '', addr: '', note: '' })
+const submitting = ref(false)
+const submitError = ref('')
 
-function submitOrder() {
-  showToast('订单已提交，客服将尽快与您联系确认！')
-  cartModal.show = false
+async function submitOrder() {
+  submitError.value = ''
+
+  if (!cart.items.length) {
+    submitError.value = '购物车为空，无法提交订单'
+    return
+  }
+
+  if (!checkout.name.trim()) {
+    submitError.value = '请填写收货人姓名'
+    return
+  }
+
+  if (!checkout.phone.trim()) {
+    submitError.value = '请填写联系电话'
+    return
+  }
+
+  if (!checkout.addr.trim()) {
+    submitError.value = '请填写收货地址'
+    return
+  }
+
+  submitting.value = true
+
+  try {
+    const order = await createOrder(
+      {
+        contact_name: checkout.name.trim(),
+        contact_phone: checkout.phone.trim(),
+        contact_address: checkout.addr.trim(),
+        note: checkout.note.trim() || null,
+        items: cart.snapshot(),
+      },
+      authStore.token || undefined,
+    )
+
+    orderSuccessModal.orderId = order.id
+    orderSuccessModal.total = order.total_price
+    orderSuccessModal.show = true
+
+    cart.clear()
+    cartModal.show = false
+    checkout.name = ''
+    checkout.phone = ''
+    checkout.addr = ''
+    checkout.note = ''
+  } catch (e: any) {
+    submitError.value = e?.message || '订单提交失败，请稍后再试'
+  } finally {
+    submitting.value = false
+  }
 }
 
-function onOpenCart() { cartModal.show = true }
+function onOpenCart() {
+  if (!requireLogin('登录后即可查看和结算购物车')) return
+  cartModal.show = true
+}
+
 onMounted(() => window.addEventListener('open-cart', onOpenCart))
 onUnmounted(() => window.removeEventListener('open-cart', onOpenCart))
 </script>
 
-
-
-<!---------------------------------------------------------->
 <style scoped>
 .section-title-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--tea-border);
   padding-bottom: 10px;
 }
 
 .section-title {
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--tea-primary);
   position: relative;
   padding-left: 15px;
@@ -420,61 +509,112 @@ onUnmounted(() => window.removeEventListener('open-cart', onOpenCart))
 }
 
 #marketTabs .nav-link {
-  border: 1px solid rgba(0, 104, 59, 0.18);
+  border: 1px solid var(--tea-border);
   color: var(--tea-primary);
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--tea-surface);
   border-radius: 999px;
   padding: 8px 16px;
   margin-right: 10px;
 }
 
 #marketTabs .nav-link.active {
-  background: rgba(0, 104, 59, 0.14) !important;
+  background: var(--tea-primary-soft) !important;
   color: var(--tea-primary) !important;
 }
 
-.spec-grid {
+.cart-summary {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--tea-border);
+  background: var(--tea-surface);
 }
 
-.spec-option {
-  border: 1px solid rgba(0, 104, 59, 0.22);
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  padding: 10px 12px;
-  cursor: pointer;
+.cart-summary-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  transition: all 0.18s ease;
+  align-items: center;
+  color: var(--tea-text-muted);
 }
 
-.spec-option:hover {
-  border-color: rgba(0, 104, 59, 0.38);
-  background: rgba(0, 104, 59, 0.06);
+.cart-summary-row strong {
+  color: var(--tea-text);
+  font-size: 1.1rem;
 }
 
-.spec-option.is-selected {
-  border-color: rgba(0, 104, 59, 0.7);
-  background: rgba(0, 104, 59, 0.10);
+.tip-box {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--tea-primary-soft);
+  color: var(--tea-primary);
+  font-size: .88rem;
 }
 
-.spec-option-title {
-  font-weight: 800;
-  color: #1b4d24;
+.cart-item {
+  padding: 14px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  border: 1px solid var(--tea-border);
+  background: var(--tea-surface);
 }
 
-.spec-option-meta {
-  font-weight: 800;
-  color: #e53935;
-  white-space: nowrap;
+.empty-cart {
+  padding: 28px 16px;
+  border-radius: 14px;
+  text-align: center;
+  color: var(--tea-text-muted);
+  background: var(--tea-surface);
+  border: 1px dashed var(--tea-border);
+}
+
+.success-modal {
+  border-radius: 20px;
+  border: 1px solid var(--tea-border);
+  background: var(--tea-surface);
+}
+
+.success-icon {
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
+  margin: 0 auto;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--tea-primary);
+  font-size: 2rem;
+  font-weight: 900;
 }
 
 .qty-stepper .btn {
   width: 44px;
+}
+
+.los-modal {
+  z-index: 3005;
+}
+
+.los-modal .modal-dialog {
+  pointer-events: auto;
+  z-index: 3010;
+}
+
+.los-modal-content {
+  background: var(--tea-surface) !important;
+  color: var(--tea-text);
+  border: 1px solid var(--tea-border);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.los-modal-content .modal-header,
+.los-modal-content .modal-footer {
+  border-color: var(--tea-border);
+}
+
+.los-modal-backdrop {
+  z-index: 2995;
+  opacity: .56 !important;
 }
 
 .modal {

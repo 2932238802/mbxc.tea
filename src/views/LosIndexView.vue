@@ -76,8 +76,9 @@ const modules = [
 }
 .intro-img {
   width: 100%;
-  max-height: 390px;
+  max-height: 430px;
   object-fit: cover;
+  object-position: center 60%;
 }
 .section-title-wrapper {
   display: flex;

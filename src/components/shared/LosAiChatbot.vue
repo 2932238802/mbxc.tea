@@ -46,10 +46,19 @@
           </div>
 
           <div class="ai-chat-log mb-3" ref="chatRef">
-            <div v-for="(msg, i) in messages" :key="i" class="ai-bubble" :class="msg.role">
-              {{ msg.content }}
+            <div v-for="(msg, i) in messages" :key="i" class="ai-message-row" :class="msg.role">
+              <img v-if="msg.role === 'assistant'" :src="assetUrl('茶小泽2.png')" alt="茶小泽" class="message-avatar">
+              <div class="ai-bubble" :class="msg.role === 'assistant' ? 'bot' : 'user'" v-html="formatMessage(msg.content)"></div>
             </div>
-            <div v-if="isLoading" class="ai-bubble bot">茶小泽正在输入…</div>
+            <div v-if="isLoading" class="ai-message-row bot">
+              <img :src="assetUrl('茶小泽2.png')" alt="茶小泽" class="message-avatar">
+              <div class="ai-bubble bot typing-bubble">
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <em>茶小泽正在思考</em>
+              </div>
+            </div>
           </div>
 
           <!-- Input -->
@@ -100,6 +109,29 @@ async function send() {
 function handleQuick(q: string) {
   text.value = q
   send()
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+function formatMessage(content: string) {
+  let html = escapeHtml(content)
+
+  html = html
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\n/g, '<br>')
+    .replace(/\s*(\d+)\.\s*/g, '<br><span class="answer-index">$1</span> ')
+    .replace(/\s*[-•]\s*/g, '<br><span class="answer-dot"></span> ')
+
+  html = html.replace(/^<br>/, '')
+  return html
 }
 </script>
 
@@ -166,29 +198,123 @@ function handleQuick(q: string) {
 }
 
 .ai-chat-log {
-  background: rgba(248, 249, 250, 0.8);
-  border: 1px solid #eee;
-  border-radius: 12px;
-  padding: 12px;
-  max-height: 36vh;
+  background: linear-gradient(180deg, rgba(248, 252, 250, 0.88), rgba(255, 255, 255, 0.78));
+  border: 1px solid var(--tea-border);
+  border-radius: 18px;
+  padding: 16px;
+  max-height: 42vh;
   overflow: auto;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
+}
+
+.ai-message-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.ai-message-row.user {
+  justify-content: flex-end;
+}
+
+.message-avatar {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--tea-border);
+  box-shadow: 0 6px 16px rgba(0, 104, 59, 0.10);
 }
 
 .ai-bubble {
-  border-radius: 12px;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-  line-height: 1.6;
+  max-width: min(820px, 88%);
+  border-radius: 18px;
+  padding: 13px 15px;
+  line-height: 1.85;
   font-size: 0.95rem;
+  word-break: break-word;
+  white-space: normal;
 }
 
 .ai-bubble.user {
-  background: rgba(0, 104, 59, 0.10);
+  color: #0f3b25;
+  background: linear-gradient(135deg, rgba(0, 104, 59, 0.12), rgba(18, 183, 106, 0.08));
   border: 1px solid rgba(0, 104, 59, 0.18);
+  border-top-right-radius: 6px;
 }
 
 .ai-bubble.bot {
+  color: var(--tea-text);
   background: #fff;
-  border: 1px solid #eee;
+  border: 1px solid rgba(0, 104, 59, 0.10);
+  border-top-left-radius: 6px;
+  box-shadow: 0 10px 26px rgba(0, 104, 59, 0.08);
+}
+
+:deep(.ai-bubble strong) {
+  color: var(--tea-primary);
+  font-weight: 900;
+}
+
+:deep(.ai-bubble code) {
+  padding: 2px 6px;
+  border-radius: 7px;
+  color: var(--tea-primary);
+  background: var(--tea-primary-soft);
+  font-family: inherit;
+  font-weight: 800;
+}
+
+:deep(.answer-index) {
+  min-width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px 6px 2px 0;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--tea-primary);
+  font-size: .78rem;
+  font-weight: 900;
+}
+
+:deep(.answer-dot) {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  margin: 0 8px 1px 2px;
+  border-radius: 999px;
+  background: var(--tea-primary);
+}
+
+.typing-bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.typing-bubble em {
+  margin-left: 4px;
+  color: var(--tea-text-muted);
+  font-style: normal;
+}
+
+.typing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--tea-primary);
+  animation: typing-bounce 1s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(2) { animation-delay: .15s; }
+.typing-dot:nth-child(3) { animation-delay: .3s; }
+
+@keyframes typing-bounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: .45; }
+  40% { transform: translateY(-4px); opacity: 1; }
 }
 </style>

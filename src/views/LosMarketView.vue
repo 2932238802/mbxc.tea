@@ -18,9 +18,9 @@ import Layout from '@/components/shop/LosLayout.vue'
 import MarketSection from '@/components/shop/LosMarketSection.vue'
 import MeteorPage from '@/components/shared/LosMeteorPage.vue'
 
-const stats = [
+const stats: Array<{ value: string; label: string; action?: 'openCart' }> = [
   { value: '4档', label: '茶品等级' },
   { value: '4款', label: '文创周边' },
-  { value: 'Cart', label: '购物车' },
+  { value: '购物车', label: '查看结算', action: 'openCart' },
 ]
 </script>

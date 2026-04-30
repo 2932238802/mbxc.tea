@@ -50,9 +50,6 @@
               <button class="btn btn-success rounded-pill w-100 mt-3" @click="openCart">
                 查看购物车
               </button>
-              <div class="form-text mt-2">
-                购物车里点击「提交订单」才会发送给后端
-              </div>
             </div>
           </div>
         </div>

@@ -20,7 +20,13 @@
         </div>
 
         <div v-if="stats?.length" class="hero-stats">
-          <div class="hero-stat" v-for="stat in stats" :key="stat.label">
+          <div
+            class="hero-stat"
+            :class="{ clickable: stat.action === 'openCart' }"
+            v-for="stat in stats"
+            :key="stat.label"
+            @click="handleStatClick(stat)"
+          >
             <strong>{{ stat.value }}</strong>
             <span>{{ stat.label }}</span>
           </div>
@@ -37,9 +43,15 @@ defineProps<{
   kicker: string
   title: string
   subtitle: string
-  stats?: Array<{ value: string; label: string }>
+  stats?: Array<{ value: string; label: string; action?: 'openCart' }>
   bgImage?: string
 }>()
+
+function handleStatClick(stat: { action?: 'openCart' }) {
+  if (stat.action === 'openCart') {
+    window.dispatchEvent(new CustomEvent('open-cart'))
+  }
+}
 </script>
 
 <style scoped>
@@ -195,6 +207,17 @@ defineProps<{
   border-radius: 18px;
   background: var(--tea-surface);
   text-align: center;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.hero-stat.clickable {
+  cursor: pointer;
+}
+
+.hero-stat.clickable:hover {
+  transform: translateY(-3px);
+  border-color: var(--tea-primary);
+  box-shadow: 0 12px 24px rgba(0, 104, 59, 0.12);
 }
 
 .hero-stat strong {

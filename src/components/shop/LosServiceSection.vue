@@ -140,7 +140,7 @@ const baseCards: Record<TabKey, ServiceCard[]> = {
     {
       title: '茶市场和消费者调研',
       tag: '洞察',
-      image: '游客服务中心.jpg',
+      image: '城市书屋.jpg',
       tone: 'green',
       desc: '采集茶企相关信息，从宏观层面给予茶产业、行业、竞品、受众宏观洞察。',
       points: ['消费人群洞察', '竞品卖点拆解', '价格带研究'],
@@ -148,7 +148,7 @@ const baseCards: Record<TabKey, ServiceCard[]> = {
     {
       title: '茶产品品牌定位',
       tag: '定位',
-      image: '茶叶.jpg',
+      image: '导览.jpg',
       tone: 'lime',
       featured: true,
       desc: '在基于品牌发展愿景、使命的基础上，茶企在核心价值、产品结构和客群上形成清晰定位。',
@@ -157,14 +157,14 @@ const baseCards: Record<TabKey, ServiceCard[]> = {
     {
       title: '品牌形象设计',
       tag: '视觉',
-      image: '总览.jpg',
+      image: '古树群公园.jpg',
       tone: 'white',
       desc: '基于品牌定位、品牌命名、品牌口号，对茶企品牌进行品牌 logo、包装、宣传物料等内容设计。',
       points: ['Logo 设计', '包装设计', '视觉识别系统'],
     },
   ],
   quality: [
-    { title: '茶园批次管理', tag: '批次', image: '数字2.jpg', tone: 'green', desc: '记录茶园地块、采摘时间、鲜叶来源和加工批次，形成完整质量链路。', points: ['地块档案', '采摘记录', '批次追踪'] },
+    { title: '茶园批次管理', tag: '批次', image: '古树群公园.jpg', tone: 'green', desc: '记录茶园地块、采摘时间、鲜叶来源和加工批次，形成完整质量链路。', points: ['地块档案', '采摘记录', '批次追踪'] },
     { title: '检测与品鉴记录', tag: '检测', image: '精选级.jpg', tone: 'white', featured: true, desc: '沉淀水分、香气、汤色、滋味和叶底等检测品鉴数据，辅助品质评级。', points: ['感官评审', '指标记录', '等级判定'] },
     { title: '质量异常预警', tag: '预警', image: '碳汇.jpg', tone: 'teal', desc: '当加工过程、仓储环境或检测结果异常时，及时提醒并形成处置记录。', points: ['过程监控', '异常提醒', '整改闭环'] },
   ],
@@ -174,7 +174,7 @@ const baseCards: Record<TabKey, ServiceCard[]> = {
     { title: '包装标准', tag: '包装', image: '特选级.jpg', tone: 'blue', desc: '统一茶礼盒、标签、溯源码和外箱包装规范，提升品牌识别度。', points: ['标签规范', '礼盒规范', '溯源码规则'] },
   ],
   trade: [
-    { title: '企业采购撮合', tag: 'B端', image: '茶叶.jpg', tone: 'green', desc: '对接企业团购、经销商和渠道客户，提升大单转化效率。', points: ['采购需求', '报价管理', '合同跟踪'] },
+    { title: '企业采购撮合', tag: 'B端', image: '以茶代酒.jpg', tone: 'green', desc: '对接企业团购、经销商和渠道客户，提升大单转化效率。', points: ['采购需求', '报价管理', '合同跟踪'] },
     { title: '预售订单管理', tag: '预售', image: '精选级.jpg', tone: 'white', featured: true, desc: '支持春茶上市前预售、定金锁单和批次履约管理。', points: ['定金预售', '批次履约', '发货提醒'] },
     { title: '交易履约跟踪', tag: '履约', image: '游客服务中心.jpg', tone: 'orange', desc: '跟踪订单、仓储、物流和回款状态，保障交易闭环。', points: ['订单进度', '物流节点', '回款记录'] },
   ],
@@ -184,7 +184,7 @@ const baseCards: Record<TabKey, ServiceCard[]> = {
     { title: '会员复购运营', tag: '会员', image: '茶宠.jpg', tone: 'purple', desc: '结合购买记录、偏好和节庆节点，提升复购和客单价。', points: ['会员画像', '复购提醒', '优惠策略'] },
   ],
   supply: [
-    { title: '农资采购计划', tag: '计划', image: '数字2.jpg', tone: 'green', desc: '根据茶园面积、农事计划和季节变化生成农资采购建议。', points: ['肥料计划', '耗材计划', '设备采购'] },
+    { title: '农资采购计划', tag: '计划', image: '城市书屋.jpg', tone: 'green', desc: '根据茶园面积、农事计划和季节变化生成农资采购建议。', points: ['肥料计划', '耗材计划', '设备采购'] },
     { title: '供应商协同', tag: '协同', image: '游客服务中心.jpg', tone: 'white', featured: true, desc: '连接农资供应商，管理报价、交付和服务评价。', points: ['供应商档案', '报价比选', '履约评价'] },
     { title: '茶园物资台账', tag: '台账', image: '导览.jpg', tone: 'teal', desc: '记录农资入库、领用、消耗与库存，减少人工统计成本。', points: ['入库记录', '领用登记', '库存预警'] },
   ],

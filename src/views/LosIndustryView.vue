@@ -3,7 +3,7 @@
     <MeteorPage
       kicker="数字茶园 · 未来茶场"
       title="茶产业"
-      subtitle="以物联网、遥感、AI 决策与产业大脑构建安顶山数字茶园，让茶园生产、加工、销售和管理可感知、可分析、可协同"
+      subtitle="数字感知茶园生产、加工、销售与管理全流程"
       :stats="stats"
       :bg-image="assetUrl('总览.jpg')"
     >

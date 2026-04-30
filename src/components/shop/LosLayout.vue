@@ -37,7 +37,7 @@ import CartModal from '@/components/shop/LosCartModal.vue'
   background-attachment: fixed;
 }
 .page-offset {
-  padding-top: 76px;
-  min-height: calc(100vh - 76px);
+  padding-top: 58px;
+  min-height: calc(100vh - 58px);
 }
 </style>

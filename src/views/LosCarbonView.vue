@@ -69,15 +69,15 @@
               <div class="modal-body">
                 <div class="case-summary-grid mb-4">
                   <div class="case-summary-card">
-                    <strong>350亩</strong>
+                    <strong>{{ animatedCarbonStats.area }}亩</strong>
                     <span>核心茶园面积</span>
                   </div>
                   <div class="case-summary-card">
-                    <strong>120 tCO₂e</strong>
+                    <strong>{{ animatedCarbonStats.carbon }} tCO₂e</strong>
                     <span>预计年度碳汇量</span>
                   </div>
                   <div class="case-summary-card">
-                    <strong>¥28,000</strong>
+                    <strong>¥{{ animatedCarbonStats.value.toLocaleString() }}</strong>
                     <span>示范交易价值</span>
                   </div>
                 </div>
@@ -111,13 +111,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { assetUrl } from '@/utils/asset'
 import { visualIcon, type VisualKey } from '@/utils/visual'
 import Layout from '@/components/shop/LosLayout.vue'
 import MeteorPage from '@/components/shared/LosMeteorPage.vue'
 
 const showCarbonCase = ref(false)
+const animatedCarbonStats = reactive({ area: 0, carbon: 0, value: 0 })
+
+function animateNumber(key: keyof typeof animatedCarbonStats, target: number, duration = 900) {
+  const startTime = performance.now()
+
+  function tick(now: number) {
+    const progress = Math.min((now - startTime) / duration, 1)
+    const easeOut = 1 - Math.pow(1 - progress, 3)
+    animatedCarbonStats[key] = Math.round(target * easeOut)
+
+    if (progress < 1) {
+      requestAnimationFrame(tick)
+    }
+  }
+
+  requestAnimationFrame(tick)
+}
+
+watch(showCarbonCase, (visible) => {
+  if (!visible) return
+  animatedCarbonStats.area = 0
+  animatedCarbonStats.carbon = 0
+  animatedCarbonStats.value = 0
+  animateNumber('area', 350)
+  animateNumber('carbon', 120)
+  animateNumber('value', 28000, 1100)
+})
 
 const carbonFlow = [
   { icon: '📡', title: '数字茶园采集', desc: '采集茶园面积、气象、土壤、长势和绿色农事记录' },

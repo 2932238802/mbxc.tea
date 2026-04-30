@@ -1,5 +1,5 @@
 <template>
-  <main class="shop-page">
+  <main class="shop-page" :class="{ 'auth-layout': isAuthPage }">
     <ShopNavbar />
     <CartModal />
     <div class="page-offset">
@@ -10,9 +10,14 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import ShopNavbar from '@/components/shop/LosShopNavbar.vue'
 import AppFooter from '@/components/shop/LosAppFooter.vue'
 import CartModal from '@/components/shop/LosCartModal.vue'
+
+const route = useRoute()
+const isAuthPage = computed(() => route.name === 'login' || route.name === 'register')
 </script>
 
 <style scoped>
@@ -35,6 +40,14 @@ import CartModal from '@/components/shop/LosCartModal.vue'
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+}
+
+.shop-page.auth-layout {
+  background: linear-gradient(135deg, var(--tea-page-bg) 0%, var(--tea-bg) 100%);
+}
+
+:root[data-theme="dark"] .shop-page.auth-layout {
+  background: linear-gradient(135deg, var(--tea-page-bg) 0%, var(--tea-bg) 100%);
 }
 .page-offset {
   padding-top: 58px;

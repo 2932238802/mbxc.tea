@@ -328,10 +328,10 @@ const router = useRouter()
 const route = useRoute()
 
 const preorderTeas = [
-  { grade: '手工·匠心', price: 3000, img: assetUrl('手工·匠心.jpg'), badge: '限量预定' },
-  { grade: '特选级', price: 1899, img: assetUrl('特选级.jpg'), badge: '限量预定' },
-  { grade: '精选级', price: 1399, img: assetUrl('精选级.jpg'), badge: '预定' },
-  { grade: '优选级', price: 999, img: assetUrl('优选级.jpg'), badge: '预定' },
+  { grade: '收藏款', price: 3000, img: assetUrl('特选级.jpg'), badge: '限量预定' },
+  { grade: '高端款', price: 500, img: assetUrl('手工·匠心.jpg'), badge: '限量预定' },
+  { grade: '大众款', price: 100, img: assetUrl('精选级.jpg'), badge: '预定' },
+  { grade: '引流款', price: 10, img: assetUrl('优选级.jpg'), badge: '预定' },
 ]
 
 const merchItems = [
